@@ -1195,6 +1195,1454 @@ To create a class library in .NET Core:
 - Reference the library in other projects using `dotnet add reference` or Visual Studio’s project reference feature.
 <br>
 
+## 🎯 .NET Core Web Development
+## 16. Describe the _MVC pattern_ in .NET Core.
+The **MVC (Model-View-Controller)** pattern is a design pattern used for developing web applications. It separates the application into three interconnected components:
+1. **Model**: Represents the data and business logic.
+2. **View**: Represents the UI (User Interface), displaying the data from the Model.
+3. **Controller**: Handles user input, interacts with the Model, and updates the View.
+
+---
+
+### **Components of the MVC Pattern in .NET Core**
+
+#### **1. Model**
+- **Purpose**: Represents the data or business logic layer of the application. It is responsible for retrieving data from a database, processing it, and sending it to the View.
+- **Structure**: Typically represented by **classes** that correspond to the entities in the application (e.g., `User`, `Product`).
+- **Examples**: Data models, business logic classes, or entities.
+
+#### **2. View**
+- **Purpose**: Represents the **UI** part of the application that is responsible for displaying the data provided by the Model.
+- **Structure**: Views are typically **Razor Pages** (`.cshtml` files) that combine HTML markup and C# code.
+- **Examples**: HTML templates that render data dynamically using Razor syntax.
+
+#### **3. Controller**
+- **Purpose**: Acts as an intermediary between the Model and the View. It handles incoming HTTP requests, processes user input, and interacts with the Model to return a response (often by updating the View).
+- **Structure**: Controllers are **C# classes** that are decorated with the `[Controller]` attribute and contain actions (methods) that handle HTTP requests.
+- **Examples**: A controller named `HomeController` with actions like `Index()` or `Create()`.
+
+---
+
+### **How It Works in .NET Core**
+
+1. **Routing**: When a request is made to a .NET Core MVC application, the routing engine matches the URL to a corresponding Controller action. For example, a request to `/home/index` would invoke the `Index()` action in the `HomeController`.
+
+2. **Controller**: The action method in the controller performs the necessary logic, such as querying a database, calling services, or processing user input.
+
+3. **Model**: If needed, the Controller interacts with the Model (typically a class or entity) to retrieve or update data.
+
+4. **View**: The Controller then passes the data to a View. The View renders the HTML output and is returned to the client as the response.
+
+---
+
+### **Example of MVC Flow**
+
+- **Request**: A user navigates to `/home/index`.
+- **Routing**: The routing system maps this URL to the `Index()` action of the `HomeController`.
+- **Controller**: The `Index()` action might query a database (Model) to get a list of products.
+- **Model**: The data (list of products) is passed to the View.
+- **View**: The View (`Index.cshtml`) generates the HTML to display the list of products.
+
+---
+
+### **Folder Structure in .NET Core MVC**
+
+- **Controllers**: Contains controller classes (e.g., `HomeController.cs`).
+- **Models**: Contains classes that define the data (e.g., `Product.cs`, `User.cs`).
+- **Views**: Contains Razor view pages (e.g., `Index.cshtml` under `Views/Home/`).
+
+---
+
+### **Advantages of MVC in .NET Core**
+1. **Separation of Concerns**: MVC promotes a clean separation between the UI, business logic, and data, making the application easier to maintain and scale.
+2. **Testability**: Since the components are loosely coupled, it is easier to write unit tests for the controller and model layers.
+3. **Reusability**: The model and controller can be reused across different views.
+4. **Flexibility**: MVC allows for flexibility in changing the UI (View) without affecting the business logic (Model) and vice versa.
+
+---
+
+### **Interview Summary**
+The **MVC pattern** in .NET Core separates an application into three components:
+- **Model**: Represents data and business logic.
+- **View**: Displays the data to the user.
+- **Controller**: Manages user input and updates the model and view.
+This separation leads to better maintainability, scalability, and testability of web applications. The MVC architecture is implemented in .NET Core through controllers, models, and Razor views.
+<br>
+
+## 17. How do you set up a _Web API_ in a .NET Core project?
+To set up a **Web API** in a **.NET Core** project, follow these steps:
+
+---
+
+### **1. Create a New .NET Core Web API Project**
+You can create a Web API project either using **Visual Studio** or the **.NET CLI**.
+
+#### **Using .NET CLI**:
+1. Open a terminal or command prompt.
+2. Run the following command to create a new Web API project:
+   ```bash
+   dotnet new webapi -n <ProjectName>
+   ```
+   - `webapi`: Specifies the template for a Web API project.
+   - `-n <ProjectName>`: Specifies the name of the project.
+3. Navigate to the newly created project folder:
+   ```bash
+   cd <ProjectName>
+   ```
+
+#### **Using Visual Studio**:
+1. Open **Visual Studio**.
+2. Click on **Create a new project**.
+3. Choose the **ASP.NET Core Web API** template.
+4. Enter the project name and location, then click **Create**.
+5. Select **.NET 6** or **.NET 7** as the framework and click **Create**.
+
+---
+
+### **2. Configure the Web API in Startup/Program Class**
+
+#### **In .NET 6 and later (Minimal API setup)**:
+Starting with **.NET 6**, the `Program.cs` file combines the configuration and startup logic:
+
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllers(); // Adds controllers for Web API
+
+// Build the application
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+app.UseHttpsRedirection();
+
+app.MapControllers(); // Maps the controller routes
+
+app.Run();
+```
+
+#### **In .NET 5 and earlier (Using Startup.cs)**:
+For older versions (e.g., .NET 5), the **Startup.cs** class is used:
+
+```csharp
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddControllers(); // Adds controllers for Web API
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+
+        app.UseHttpsRedirection();
+        app.UseRouting();
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers(); // Maps controller routes
+        });
+    }
+}
+```
+
+---
+
+### **3. Create a Controller for the API**
+
+A controller in a Web API handles incoming HTTP requests and returns responses.
+
+1. Create a folder called **Controllers** (if it doesn’t exist).
+2. Add a new class to the **Controllers** folder, for example, `WeatherController.cs`.
+
+Example of a basic controller:
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+
+namespace WebApiExample.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class WeatherController : ControllerBase
+    {
+        // GET: api/weather
+        [HttpGet]
+        public IActionResult Get()
+        {
+            var weatherData = new
+            {
+                Temperature = 25,
+                Condition = "Sunny"
+            };
+
+            return Ok(weatherData); // Respond with HTTP 200 and weather data
+        }
+
+        // GET: api/weather/{id}
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            return Ok(new { Id = id, Temperature = 25, Condition = "Sunny" });
+        }
+    }
+}
+```
+
+Explanation:
+- **[Route("api/[controller]")]:** This defines the base route for the controller (e.g., `api/weather`).
+- **[HttpGet]:** Indicates that this method responds to HTTP GET requests.
+- **IActionResult:** Represents the result of an action method in the API, used to return data and status codes.
+
+---
+
+### **4. Test the API**
+
+1. Run the Web API project using the **dotnet run** command or by pressing **F5** in Visual Studio.
+2. Navigate to the appropriate URL to test the Web API:
+   - If running locally, use `https://localhost:5001/api/weather` for the `Get` request.
+   - You can use tools like **Postman** or **Swagger** to test your API endpoints.
+
+---
+
+### **5. Enable Swagger for API Documentation (Optional but Recommended)**
+
+Swagger allows you to test and explore the API directly in the browser. It's helpful during development.
+
+1. Install the **Swashbuckle.AspNetCore** package via NuGet:
+   ```bash
+   dotnet add package Swashbuckle.AspNetCore
+   ```
+
+2. In **Program.cs** (or **Startup.cs**), add Swagger configuration:
+
+   ```csharp
+   builder.Services.AddSwaggerGen(); // Add Swagger services
+
+   var app = builder.Build();
+
+   // Enable middleware to serve generated Swagger as a JSON endpoint.
+   app.UseSwagger();
+
+   // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.)
+   app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web API v1"));
+
+   app.Run();
+   ```
+
+   Now, when you run the application, you can access Swagger UI at `https://localhost:5001/swagger`.
+
+---
+
+### **Summary for Interview**
+To set up a Web API in .NET Core:
+1. Create a new Web API project using **`dotnet new webapi`** or Visual Studio.
+2. Configure services in **Program.cs** (or **Startup.cs**) to add controllers and map them to routes.
+3. Create controller classes and define HTTP action methods (`GET`, `POST`, etc.).
+4. Optionally, enable **Swagger** for interactive API documentation and testing.
+
+This architecture follows the MVC (Model-View-Controller) pattern, focusing on controllers that handle incoming API requests and return responses.
+<br>
+
+## 18. What are _middleware components_ in .NET Core?
+Middleware components in **.NET Core** are software components that are assembled into an application pipeline to handle requests and responses. These components are executed in a sequence, with each one processing the request before passing it to the next middleware, or generating a response.
+
+Middleware can be used to perform tasks such as:
+- Logging
+- Authentication and Authorization
+- Request handling and routing
+- Response manipulation
+- Exception handling
+- Caching
+
+### **How Middleware Works**
+
+When a request comes to the application:
+1. It is passed through each middleware component in the pipeline, starting from the first middleware.
+2. Each middleware can either:
+   - Handle the request and generate a response (terminating the request pipeline), or
+   - Pass the request along to the next middleware for further processing.
+3. When the request reaches the end of the pipeline, the response is returned back through the middleware components in reverse order.
+4. The last middleware in the pipeline sends the final response to the client.
+
+### **Key Characteristics of Middleware**
+- **Order Matters**: The order in which middleware is added to the pipeline matters because each middleware can affect the request or response in some way before passing it to the next one.
+- **Request/Response Handling**: Middleware can either process the request, perform actions (e.g., logging), or modify the response (e.g., add headers, transform content).
+- **Can Short-Circuit**: Some middleware can stop the pipeline early (e.g., authentication middleware), and not pass the request along further if certain conditions are met.
+
+### **Common Middleware in .NET Core**
+
+1. **UseRouting**: 
+   - Routes incoming requests to controllers, razor pages, or endpoints.
+   - Example:
+     ```csharp
+     app.UseRouting();
+     ```
+
+2. **UseEndpoints**: 
+   - Defines the endpoints (such as MVC controllers, Razor Pages, etc.) after the routing middleware.
+   - Example:
+     ```csharp
+     app.UseEndpoints(endpoints =>
+     {
+         endpoints.MapControllers(); // Maps controller actions to HTTP requests
+     });
+     ```
+
+3. **UseStaticFiles**: 
+   - Serves static files (like images, CSS, JavaScript) from a specific folder (e.g., `/wwwroot`).
+   - Example:
+     ```csharp
+     app.UseStaticFiles();
+     ```
+
+4. **UseAuthentication** and **UseAuthorization**:
+   - Middleware for handling authentication and authorization.
+   - Example:
+     ```csharp
+     app.UseAuthentication();
+     app.UseAuthorization();
+     ```
+
+5. **UseDeveloperExceptionPage**:
+   - Provides detailed error pages during development to help with debugging.
+   - Example:
+     ```csharp
+     app.UseDeveloperExceptionPage();
+     ```
+
+6. **UseHttpsRedirection**:
+   - Redirects HTTP requests to HTTPS to ensure secure communication.
+   - Example:
+     ```csharp
+     app.UseHttpsRedirection();
+     ```
+
+7. **UseCors** (Cross-Origin Resource Sharing):
+   - Enables CORS (Cross-Origin requests), allowing or restricting cross-origin requests from web browsers.
+   - Example:
+     ```csharp
+     app.UseCors("MyPolicy");
+     ```
+
+8. **UseSwagger** (Optional):
+   - Adds Swagger support for API documentation and testing.
+   - Example:
+     ```csharp
+     app.UseSwagger();
+     app.UseSwaggerUI();
+     ```
+
+9. **UseExceptionHandler**:
+   - Handles exceptions globally and provides custom error pages or responses.
+   - Example:
+     ```csharp
+     app.UseExceptionHandler("/Home/Error");
+     ```
+
+10. **Custom Middleware**:
+    - You can create your own middleware to perform custom logic.
+    - Example:
+      ```csharp
+      public class MyCustomMiddleware
+      {
+          private readonly RequestDelegate _next;
+
+          public MyCustomMiddleware(RequestDelegate next)
+          {
+              _next = next;
+          }
+
+          public async Task InvokeAsync(HttpContext context)
+          {
+              // Custom logic before the request reaches the next middleware
+              await _next(context); // Pass the request to the next middleware
+              // Custom logic after the response is generated
+          }
+      }
+
+      public void Configure(IApplicationBuilder app)
+      {
+          app.UseMiddleware<MyCustomMiddleware>();
+      }
+      ```
+
+### **How to Add Middleware**
+
+Middleware is added to the application pipeline in the **Configure** method in `Program.cs` (or `Startup.cs` for .NET 5 and earlier).
+
+Example:
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+// Adding middleware components
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+app.Run();
+```
+
+### **Middleware Pipeline in Action**
+
+1. **Request enters the pipeline**:
+   - The request is passed through middleware components (e.g., authentication, routing).
+   
+2. **Each middleware processes the request**:
+   - Some middleware may modify the request (e.g., add headers, log information), and some might terminate the request early (e.g., in case of authentication failure).
+
+3. **Response is processed in reverse order**:
+   - Once the request reaches the end of the pipeline and a response is generated, it travels back through the middleware stack (e.g., for logging or modifying the response before sending it back to the client).
+
+### **Summary for Interview**
+Middleware in .NET Core is a series of components that handle HTTP requests and responses. They can modify requests, perform operations, and generate responses. Middleware is added in a specific order and processed sequentially, allowing for tasks like authentication, logging, routing, and response transformation. Key middleware components include **UseRouting**, **UseAuthentication**, **UseExceptionHandler**, and **UseSwagger**. Custom middleware can also be created to implement specific functionality in the request/response pipeline.
+<br>
+
+## 19. Explain how _static files_ are served in a .NET Core web application.
+In .NET Core, static files (like images, CSS, JavaScript, fonts, etc.) are served to clients directly by the web server without requiring any dynamic processing from controllers. These files are typically placed in a specific directory (usually the `/wwwroot` folder) within the application.
+
+### Key Concepts:
+- **Static Files**: Files that do not change frequently and can be served directly from the file system to the client (e.g., images, stylesheets, JavaScript files).
+- **wwwroot Folder**: The default directory for static files in a .NET Core web application. This is the public root directory, and anything inside this folder can be served as a static file.
+
+### Steps to Serve Static Files:
+
+1. **Ensure the Use of the `wwwroot` Folder**:
+   By default, static files in a .NET Core application are placed inside the `wwwroot` folder. You can configure this folder in the `Program.cs` or `Startup.cs` file if needed.
+
+   - The structure of your project will look something like this:
+     ```
+     /wwwroot
+         /css
+         /js
+         /images
+         index.html
+     ```
+
+2. **Enable Static File Middleware**:
+   To serve static files, you need to add the **UseStaticFiles** middleware to the application's request pipeline. This middleware is typically added in the `Configure` method in `Program.cs` or `Startup.cs`.
+
+   **Example (Program.cs in .NET 6 and above):**
+   ```csharp
+   var builder = WebApplication.CreateBuilder(args);
+   var app = builder.Build();
+
+   // Enable static file serving
+   app.UseStaticFiles();
+
+   // Routing and other middlewares
+   app.UseRouting();
+
+   app.MapGet("/", () => "Hello World!");
+
+   app.Run();
+   ```
+
+   **Example (Startup.cs for .NET 5 and below):**
+   ```csharp
+   public void Configure(IApplicationBuilder app)
+   {
+       // Enable static file serving
+       app.UseStaticFiles();
+
+       // Other middleware
+       app.UseRouting();
+   }
+   ```
+
+   By default, the `UseStaticFiles` middleware looks for static files in the `wwwroot` folder. Any files inside this folder will be publicly accessible via HTTP.
+
+3. **Accessing Static Files**:
+   Once the middleware is configured, you can access the static files directly through the URL of your application. For example:
+   - `wwwroot/css/styles.css` can be accessed as `/css/styles.css` via the browser.
+   - `wwwroot/images/logo.png` can be accessed as `/images/logo.png` via the browser.
+
+   If you have an HTML file in the `wwwroot` folder, you can access it directly:
+   - `wwwroot/index.html` will be accessible as `/index.html`.
+
+4. **Customizing Static File Options (Optional)**:
+   You can customize the static file middleware behavior by passing an `StaticFileOptions` object to `UseStaticFiles`. This allows you to:
+   - Change the directory where static files are served from.
+   - Add custom file providers.
+   - Set caching policies.
+
+   **Example of customizing static file options**:
+   ```csharp
+   var builder = WebApplication.CreateBuilder(args);
+   var app = builder.Build();
+
+   // Custom static file configuration
+   app.UseStaticFiles(new StaticFileOptions
+   {
+       FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "CustomStaticFiles")),
+       RequestPath = "/custom" // Static files will be served under '/custom'
+   });
+
+   app.Run();
+   ```
+
+   This would serve static files from a custom folder (e.g., `CustomStaticFiles`) under a custom path like `/custom`.
+
+5. **Serving Files from External Locations**:
+   You can serve static files from external directories by configuring additional file providers. For instance, if your static files are stored outside the project directory, you can configure a file provider for that location.
+
+   **Example:**
+   ```csharp
+   var builder = WebApplication.CreateBuilder(args);
+   var app = builder.Build();
+
+   var externalDirectory = Path.Combine(Directory.GetCurrentDirectory(), "ExternalStaticFiles");
+   app.UseStaticFiles(new StaticFileOptions
+   {
+       FileProvider = new PhysicalFileProvider(externalDirectory),
+       RequestPath = "/external" // Static files will be served under '/external'
+   });
+
+   app.Run();
+   ```
+
+### Common Static File Middleware Options:
+1. **`UseStaticFiles()`**:
+   Serves static files from the `wwwroot` folder (default behavior).
+2. **`UseFileServer()`**:
+   A shorthand for enabling both static files and directory browsing.
+   - Example:
+     ```csharp
+     app.UseFileServer();
+     ```
+3. **`UseStaticFiles` with Custom File Providers**:
+   Allows serving static files from custom directories or locations outside `wwwroot`.
+
+4. **`Cache-Control` Headers**:
+   You can configure caching behavior for static files to improve performance. This can be done using `StaticFileOptions` to specify caching settings.
+
+### Example of Static File Access:
+
+Assuming the following file structure:
+```
+/wwwroot
+    /css
+        styles.css
+    /images
+        logo.png
+```
+
+- Access the CSS file: `http://localhost:5000/css/styles.css`
+- Access the image file: `http://localhost:5000/images/logo.png`
+
+### Summary for Interview:
+- **Static Files**: Files that do not change dynamically, such as images, JavaScript, and CSS, are served directly to clients in .NET Core.
+- **wwwroot Folder**: Default location for static files in a .NET Core application.
+- **UseStaticFiles Middleware**: The middleware that serves static files from the `wwwroot` folder or a custom location.
+- **Customizing Static Files**: You can customize file locations and request paths using `StaticFileOptions` for more flexibility.
+
+<br>
+
+## 20. Discuss the use and configuration of the _appsettings.json_ file.
+In .NET Core, the `appsettings.json` file is used to store configuration settings for your application. It allows developers to externalize configuration values, such as database connections, API keys, application-specific settings, and other values that might change depending on the environment (development, production, etc.).
+
+The `appsettings.json` file follows a **JSON** format and is typically located in the root directory of a project.
+
+### Key Features of `appsettings.json`
+
+1. **Centralized Configuration**:
+   The `appsettings.json` file provides a centralized location to store all your application's configuration settings, making it easier to manage and modify these values across different environments.
+
+2. **Hierarchical Configuration Structure**:
+   It supports a hierarchical structure, which means you can organize related configuration settings in a nested manner.
+
+3. **Environment-Specific Configuration**:
+   .NET Core supports multiple configuration sources, including environment-specific configuration files (e.g., `appsettings.Development.json`, `appsettings.Production.json`) to override settings for different environments.
+
+4. **Seamless Integration**:
+   The `appsettings.json` file integrates seamlessly with the Dependency Injection (DI) system in .NET Core. You can inject configuration values into services, controllers, or any other component easily.
+
+---
+
+### Typical Structure of `appsettings.json`
+
+Here’s an example of a simple `appsettings.json` file:
+
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=MyDb;User Id=myuser;Password=mypassword;"
+  },
+  "AppSettings": {
+    "ApiKey": "your-api-key-here",
+    "MaxItemsPerPage": 50
+  }
+}
+```
+
+- **Logging**: Configuration for logging settings like log level for different categories.
+- **ConnectionStrings**: Stores database connection strings.
+- **AppSettings**: A custom section for any application-specific settings.
+
+---
+
+### Configuration in `Program.cs` or `Startup.cs`
+
+You can configure and access the values from the `appsettings.json` file in `Program.cs` or `Startup.cs` during application startup.
+
+#### Accessing Configuration Values
+
+**In .NET 6 and later (Program.cs)**:
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+// Access the configuration values
+var apiKey = builder.Configuration["AppSettings:ApiKey"];
+var maxItems = builder.Configuration.GetValue<int>("AppSettings:MaxItemsPerPage");
+
+// Register services with DI
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+
+var app = builder.Build();
+app.Run();
+```
+
+**In .NET 5 and earlier (Startup.cs)**:
+```csharp
+public class Startup
+{
+    private readonly IConfiguration _configuration;
+
+    public Startup(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // Access the configuration values
+        var apiKey = _configuration["AppSettings:ApiKey"];
+        var maxItems = _configuration.GetValue<int>("AppSettings:MaxItemsPerPage");
+
+        // Add services to the container
+        services.AddSingleton<IConfiguration>(_configuration);
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        // Use configuration settings for application setup
+    }
+}
+```
+
+---
+
+### Environment-Specific Configuration
+
+.NET Core allows you to have different configurations for various environments (like Development, Staging, Production). The environment-specific files are named as `appsettings.{Environment}.json` (e.g., `appsettings.Development.json`, `appsettings.Production.json`).
+
+#### Example:
+- **appsettings.json** (default):
+  ```json
+  {
+    "AppSettings": {
+      "ApiKey": "default-api-key"
+    }
+  }
+  ```
+
+- **appsettings.Development.json**:
+  ```json
+  {
+    "AppSettings": {
+      "ApiKey": "dev-api-key"
+    }
+  }
+  ```
+
+When running in the **Development** environment, the settings from `appsettings.Development.json` will override those from `appsettings.json`.
+
+**Set the environment in `Program.cs`**:
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+// Set the environment-specific configuration file
+var environment = builder.Environment.EnvironmentName;
+builder.Configuration.SetBasePath(Directory.GetCurrentDirectory());
+builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                     .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
+
+var app = builder.Build();
+app.Run();
+```
+
+You can also set the environment using an environment variable:
+```bash
+set ASPNETCORE_ENVIRONMENT=Development
+```
+
+---
+
+### Secrets Management (Optional)
+
+For sensitive information like API keys, database passwords, etc., it's better to store these values outside of the `appsettings.json` file, especially for production environments. You can use **User Secrets** in local development and **Azure Key Vault** or **AWS Secrets Manager** in production.
+
+#### Use of User Secrets (for development):
+
+```bash
+dotnet user-secrets init
+dotnet user-secrets set "AppSettings:ApiKey" "secret-api-key"
+```
+
+In your application, access the secret values like any other configuration:
+```csharp
+var apiKey = builder.Configuration["AppSettings:ApiKey"];
+```
+
+---
+
+### Configuration Reloading
+
+.NET Core supports automatic reloading of configuration when changes are made to the `appsettings.json` file. This is controlled using the `reloadOnChange` option, which can be set when adding configuration sources.
+
+Example:
+```csharp
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+```
+
+This means that if the `appsettings.json` file is changed while the application is running, the configuration will be automatically reloaded and reflected across the application.
+
+---
+
+### Summary for Interview:
+
+- **Purpose**: The `appsettings.json` file is used to store configuration data such as database connection strings, API keys, and application settings.
+- **Configuration Structure**: It uses a JSON format and can include sections like `Logging`, `ConnectionStrings`, and custom application-specific sections.
+- **Environment-Specific Config**: .NET Core supports environment-specific configuration files (e.g., `appsettings.Development.json`) to override values for different environments (Development, Production).
+- **Accessing Configuration**: You can access values using the `IConfiguration` interface in `Program.cs` or `Startup.cs`.
+- **Security**: Use **User Secrets** or cloud services (like Azure Key Vault) for sensitive information in development and production environments.
+
+<br>
+
+## 21. What is _Dependency Injection (DI)_ in .NET Core?
+**Dependency Injection (DI)** is a design pattern and a core feature in .NET Core that allows you to achieve **loose coupling** between classes and their dependencies. It is a way to provide an object's dependencies from the outside rather than having the object create them itself.
+
+In DI, objects (services) are provided to the class (consumer) that needs them, rather than the class constructing the dependencies itself. This helps to make your code more testable, maintainable, and scalable.
+
+### Key Concepts of DI in .NET Core:
+
+1. **Inversion of Control (IoC)**:
+   - In DI, the control of creating objects and managing their dependencies is shifted from the class itself to an external container. This external container is typically the **Dependency Injection Container** provided by .NET Core.
+
+2. **Services**:
+   - In the context of DI, **services** are objects that provide specific functionality. They can be classes, interfaces, or components that your application needs. For example, a logging service or a database service.
+
+3. **Dependency Injection Container**:
+   - .NET Core uses a built-in **IoC Container** to manage the lifecycle and resolution of dependencies. This container is responsible for instantiating classes and injecting their required dependencies.
+   
+4. **Types of DI**:
+   - .NET Core supports three primary lifetimes for services:
+     - **Transient**: A new instance is created every time the service is requested.
+     - **Scoped**: A new instance is created per HTTP request (in web applications).
+     - **Singleton**: A single instance is created and shared throughout the application's lifetime.
+
+---
+
+### Benefits of Dependency Injection:
+
+1. **Loose Coupling**:
+   - DI promotes loose coupling by decoupling the consumer from the implementation of its dependencies. This makes it easier to swap implementations, test, and maintain components without affecting others.
+
+2. **Testability**:
+   - By injecting dependencies, it becomes easier to replace real services with mock or fake services during unit testing, making your application more testable.
+
+3. **Flexibility and Maintainability**:
+   - The dependencies can be configured in one central place (the DI container), which allows better management and configuration of services.
+
+4. **Separation of Concerns**:
+   - DI ensures that a class focuses only on its core logic without worrying about creating or managing the lifecycle of its dependencies.
+
+---
+
+### How Dependency Injection Works in .NET Core:
+
+In .NET Core, DI is configured in the **Startup.cs** (for .NET Core 3.x) or **Program.cs** (for .NET 6 and later) file where you register the dependencies with the DI container. These services are then available throughout the application.
+
+#### 1. **Registering Services**:
+In the **Program.cs** or **Startup.cs** file, you register services with the DI container. Here's an example:
+
+```csharp
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+
+        // Register services with DI container
+        builder.Services.AddTransient<IMyService, MyService>();  // Transient service
+        builder.Services.AddScoped<IRepository, Repository>();   // Scoped service
+        builder.Services.AddSingleton<ILoggingService, LoggingService>(); // Singleton service
+
+        var app = builder.Build();
+        app.Run();
+    }
+}
+```
+
+#### 2. **Injecting Dependencies**:
+Once services are registered, you can inject them into the constructor of classes like controllers, services, or middleware using constructor injection.
+
+For example, in a **Controller**:
+
+```csharp
+public class HomeController : Controller
+{
+    private readonly IMyService _myService;
+
+    // Constructor Injection
+    public HomeController(IMyService myService)
+    {
+        _myService = myService;
+    }
+
+    public IActionResult Index()
+    {
+        var result = _myService.GetData();
+        return View(result);
+    }
+}
+```
+
+In this example, the **IMyService** is injected into the **HomeController** through its constructor. The **DI container** resolves and provides an instance of **MyService** when the controller is created.
+
+#### 3. **Service Lifetimes**:
+The service lifetimes determine how instances of the services are managed in terms of their lifespan:
+
+- **Transient**: A new instance is created each time the service is requested. This is ideal for lightweight services that do not hold state.
+  ```csharp
+  builder.Services.AddTransient<IMyService, MyService>();
+  ```
+
+- **Scoped**: A new instance is created per HTTP request (in web applications). This is useful for services that are tied to the scope of a request, like database contexts.
+  ```csharp
+  builder.Services.AddScoped<IRepository, Repository>();
+  ```
+
+- **Singleton**: A single instance of the service is created and shared throughout the application's lifetime. This is useful for services that are stateless and do not depend on request data.
+  ```csharp
+  builder.Services.AddSingleton<ILoggingService, LoggingService>();
+  ```
+
+---
+
+### Example of Dependency Injection in Action:
+
+Imagine you have an application where a **HomeController** needs access to a **ProductService** to get a list of products:
+
+1. **Service Interface and Implementation**:
+   ```csharp
+   public interface IProductService
+   {
+       IEnumerable<string> GetProducts();
+   }
+
+   public class ProductService : IProductService
+   {
+       public IEnumerable<string> GetProducts()
+       {
+           return new List<string> { "Product 1", "Product 2", "Product 3" };
+       }
+   }
+   ```
+
+2. **Registering the Service in Program.cs**:
+   ```csharp
+   builder.Services.AddScoped<IProductService, ProductService>();
+   ```
+
+3. **Injecting and Using the Service in the Controller**:
+   ```csharp
+   public class HomeController : Controller
+   {
+       private readonly IProductService _productService;
+
+       public HomeController(IProductService productService)
+       {
+           _productService = productService;
+       }
+
+       public IActionResult Index()
+       {
+           var products = _productService.GetProducts();
+           return View(products);
+       }
+   }
+   ```
+
+4. **Service Lifetime Management**:
+   - **Transient**: Use when the service doesn't hold state.
+   - **Scoped**: Use when the service is tied to a request.
+   - **Singleton**: Use when the service is shared across the entire application.
+
+---
+
+### Summary for Interview:
+
+- **Dependency Injection (DI)** is a design pattern that helps manage dependencies in your application by providing them from an external source (usually a container) instead of creating them inside the class.
+- **DI in .NET Core** promotes **loose coupling**, **testability**, and **separation of concerns**.
+- Services are registered with the **DI container** in `Program.cs` or `Startup.cs`, and are injected into classes via constructor injection.
+- .NET Core supports three types of lifetimes for services: **Transient**, **Scoped**, and **Singleton**.
+
+<br>
+
+## 22. How do you implement _custom services_ and use _DI_ in .NET Core?
+In .NET Core, creating and using custom services with Dependency Injection (DI) is a straightforward process. You can define your services, register them with the DI container, and inject them into controllers, services, or any other components.
+
+Here’s a step-by-step guide to implementing custom services and using DI in .NET Core:
+
+---
+
+### 1. **Define a Custom Service Interface**
+
+First, create an **interface** that defines the contract for your custom service.
+
+```csharp
+public interface ICustomService
+{
+    string GetMessage();
+}
+```
+
+---
+
+### 2. **Implement the Custom Service**
+
+Next, create a class that implements the service interface. This class will contain the logic for your service.
+
+```csharp
+public class CustomService : ICustomService
+{
+    public string GetMessage()
+    {
+        return "Hello from Custom Service!";
+    }
+}
+```
+
+---
+
+### 3. **Register the Service with the DI Container**
+
+In .NET Core, services are registered in the **Program.cs** or **Startup.cs** file (depending on the .NET version you're using). You need to add your custom service to the DI container, which makes it available for injection throughout your application.
+
+In **Program.cs** (for .NET 6+):
+
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+// Register the custom service with DI container
+builder.Services.AddScoped<ICustomService, CustomService>();
+
+var app = builder.Build();
+app.Run();
+```
+
+In **Startup.cs** (for older versions of .NET Core):
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    // Register the custom service with DI container
+    services.AddScoped<ICustomService, CustomService>();
+}
+```
+
+In this example, the `AddScoped` method ensures that a single instance of `CustomService` is created per HTTP request. You can also use `AddTransient` (new instance every time) or `AddSingleton` (single instance for the app’s lifetime).
+
+---
+
+### 4. **Inject the Service into a Controller or Other Class**
+
+Now that your service is registered, you can inject it into a controller or any other class that needs it. Typically, services are injected into controllers using constructor injection.
+
+```csharp
+public class HomeController : Controller
+{
+    private readonly ICustomService _customService;
+
+    // Constructor Injection
+    public HomeController(ICustomService customService)
+    {
+        _customService = customService;
+    }
+
+    public IActionResult Index()
+    {
+        // Use the custom service
+        var message = _customService.GetMessage();
+        ViewBag.Message = message;
+
+        return View();
+    }
+}
+```
+
+---
+
+### 5. **Using the Service in Views (Optional)**
+
+If you want to display the message in your view, you can pass the data from the controller to the view. In the example above, `ViewBag.Message` is used to pass the string from the service to the view.
+
+In **Index.cshtml**:
+
+```html
+<h1>@ViewBag.Message</h1>
+```
+
+---
+
+### 6. **Service Lifetime Management**
+
+You can control how long a service instance lives by choosing between different lifetimes:
+
+- **Transient**: A new instance of the service is created every time it is requested. This is typically used for lightweight services that don’t hold state.
+  ```csharp
+  builder.Services.AddTransient<ICustomService, CustomService>();
+  ```
+
+- **Scoped**: A single instance of the service is created per HTTP request. This is ideal for services that are tied to the lifecycle of a request, such as database contexts.
+  ```csharp
+  builder.Services.AddScoped<ICustomService, CustomService>();
+  ```
+
+- **Singleton**: A single instance of the service is created for the entire application's lifetime. This is used for services that don't change state during the app's lifetime.
+  ```csharp
+  builder.Services.AddSingleton<ICustomService, CustomService>();
+  ```
+
+---
+
+### Example Summary:
+
+1. **Custom Service Interface**: Defines a contract for the service.
+2. **Service Implementation**: Implements the logic of the service.
+3. **DI Registration**: Register the service with the DI container in `Program.cs` or `Startup.cs`.
+4. **Service Injection**: Inject the service into controllers or other classes using constructor injection.
+5. **Service Lifetime**: Control the lifespan of the service using `AddTransient`, `AddScoped`, or `AddSingleton`.
+
+### Advantages of Using DI in .NET Core:
+
+- **Loose Coupling**: You don’t need to manually create instances of services, making your classes less dependent on each other.
+- **Testability**: You can easily mock or replace services for unit testing purposes.
+- **Centralized Configuration**: You manage services and their lifetimes in one place (`Program.cs` or `Startup.cs`).
+- **Separation of Concerns**: The responsibility for managing service instances is handled by the DI container, allowing your classes to focus on their business logic.
+
+By implementing DI, your application becomes more modular, easier to maintain, and better suited for unit testing.
+<br>
+
+## 23. What are _environment variables_ and how do they work in .NET Core?
+**Environment variables** are key-value pairs stored outside of your application, typically in the operating system's environment, which can be accessed by your application at runtime. They allow you to store configuration settings or secrets (e.g., API keys, database connection strings) in a centralized and secure way, independent of the application's code.
+
+In .NET Core, environment variables are used for storing configuration settings that may vary depending on the environment (e.g., development, production). The `.NET Core` framework provides an easy mechanism to read environment variables and use them in your application.
+
+### How Environment Variables Work in .NET Core
+
+1. **Setting Environment Variables**
+   - **Operating System**: Environment variables are typically set at the system or user level in the OS.
+     - **Windows**: You can set environment variables via the system properties (Environment Variables settings in Control Panel) or by using the Command Prompt:
+       ```sh
+       setx MY_APP_SETTING "some_value"
+       ```
+     - **Linux/macOS**: You can set environment variables using terminal commands, or by adding them to configuration files like `.bashrc` or `.zshrc`.
+       ```sh
+       export MY_APP_SETTING="some_value"
+       ```
+
+2. **Accessing Environment Variables in .NET Core**
+   - In .NET Core, environment variables can be accessed using the `Environment.GetEnvironmentVariable()` method or by using **Configuration** via `IConfiguration`.
+   
+   **Example** using `Environment.GetEnvironmentVariable()`:
+   ```csharp
+   var mySetting = Environment.GetEnvironmentVariable("MY_APP_SETTING");
+   Console.WriteLine(mySetting);
+   ```
+
+   **Example** using `IConfiguration` (recommended approach):
+   In your `Program.cs` or `Startup.cs`, the configuration system automatically reads environment variables by default.
+
+   ```csharp
+   var builder = WebApplication.CreateBuilder(args);
+
+   // Access environment variable via IConfiguration
+   var mySetting = builder.Configuration["MY_APP_SETTING"];
+   Console.WriteLine(mySetting);
+   ```
+
+3. **Using Environment Variables in Configuration Files**
+   .NET Core's configuration system supports the use of environment variables directly in the app’s configuration files such as `appsettings.json` or `appsettings.{Environment}.json` (like `appsettings.Development.json`).
+
+   **Example**: You can specify environment variables in the `appsettings.json` file:
+
+   ```json
+   {
+     "ConnectionStrings": {
+       "DefaultConnection": "Data Source=mydb;User Id=myuser;Password=${DB_PASSWORD}"
+     }
+   }
+   ```
+
+   .NET Core will substitute the value of `DB_PASSWORD` from the environment variables.
+
+4. **Overriding Configuration Settings**
+   Environment variables have higher precedence over other configuration sources, such as `appsettings.json`. If the environment variable for a particular key exists, it will override the setting in the configuration files.
+
+   For example:
+   - In `appsettings.json`:
+     ```json
+     {
+       "AppSettings": {
+         "ApiKey": "default_api_key"
+       }
+     }
+     ```
+   - If the environment variable `AppSettings__ApiKey` is set to `"new_api_key"`, the configuration value will be overridden by the environment variable.
+
+   **Example**: 
+   ```sh
+   setx AppSettings__ApiKey "new_api_key"
+   ```
+
+   In your .NET Core application, the value of `ApiKey` will be `"new_api_key"` instead of `"default_api_key"`.
+
+5. **Environment-Specific Configuration**
+   .NET Core provides a built-in mechanism for dealing with different environments (Development, Staging, Production) through environment-specific configuration files and environment variables. The environment is usually set by a system environment variable called `ASPNETCORE_ENVIRONMENT`.
+
+   - **Example**: Set the `ASPNETCORE_ENVIRONMENT` to determine the environment:
+     ```sh
+     setx ASPNETCORE_ENVIRONMENT "Development"
+     ```
+
+   - The configuration system will then load the corresponding configuration file `appsettings.Development.json`.
+
+6. **Accessing Environment Variables in Code**
+   Once the environment is set, the application can use these values throughout the code.
+
+   **Example** in `Program.cs`:
+   ```csharp
+   var builder = WebApplication.CreateBuilder(args);
+
+   // Fetch environment variables using IConfiguration
+   string environment = builder.Configuration["ASPNETCORE_ENVIRONMENT"];
+   Console.WriteLine($"The environment is: {environment}");
+
+   // Fetch custom environment variable
+   var mySetting = builder.Configuration["MY_APP_SETTING"];
+   Console.WriteLine($"My Setting: {mySetting}");
+   ```
+
+### Benefits of Using Environment Variables in .NET Core
+
+1. **Environment-Specific Configuration**: Environment variables allow you to define settings based on the environment, enabling configurations like `appsettings.Development.json` and `appsettings.Production.json`.
+   
+2. **Security**: Sensitive information (e.g., API keys, passwords, connection strings) can be stored in environment variables instead of being hard-coded in your code or checked into version control.
+
+3. **Portability**: Environment variables provide a platform-agnostic way to manage configuration, making it easier to deploy .NET Core applications across different environments (e.g., local, cloud, Docker containers).
+
+4. **Separation of Concerns**: By separating configuration from code, environment variables promote better separation of concerns and allow developers to configure applications without modifying code.
+
+### Summary
+
+- **Environment Variables** in .NET Core are used to store configuration values that can vary depending on the environment (e.g., development, staging, production).
+- They are typically set outside of the application and accessed via the `IConfiguration` system or the `Environment.GetEnvironmentVariable()` method.
+- **Higher Precedence**: Environment variables can override settings in `appsettings.json` or other configuration files.
+- They help maintain **security**, **portability**, and **environment-specific configurations** in a **centralized** manner.
+
+Using environment variables effectively in .NET Core makes your application more flexible and easier to manage across different environments and stages of deployment.
+<br>
+
+## 24. How does _routing_ work in a .NET Core MVC application?
+Routing in a .NET Core MVC (Model-View-Controller) application determines how HTTP requests are mapped to the corresponding controller actions. It is a crucial part of the MVC architecture that facilitates the connection between incoming URLs and the actions that handle them.
+
+### Key Concepts of Routing in .NET Core MVC
+
+1. **Routing Table**: The routing system in .NET Core uses a table to map URLs (or routes) to specific controller actions. This table defines how URL patterns should be matched to the correct controller and action.
+
+2. **Route Patterns**: A route pattern is a string that defines the structure of a URL, including any parameters that may be included. For example, a route pattern may specify that the URL `example.com/products/123` maps to a controller action that accepts the `id` parameter (`123` in this case).
+
+3. **Controller and Action**: Each route maps to a controller and action in the MVC application. The controller handles the request, and the action method contains the logic for processing the request and returning a response.
+
+4. **Default Route**: The default route is defined to handle requests that do not match a specific route. This route typically points to a default controller and action, like `HomeController` and `Index` action.
+
+---
+
+### How Routing Works in .NET Core MVC
+
+1. **Defining Routes in `Startup.cs`**:
+   - In .NET Core MVC, routes are configured in the `Configure` method of the `Startup.cs` class. The `UseEndpoints()` method is used to define the routing behavior for the application.
+
+   **Example**:
+   ```csharp
+   public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+   {
+       app.UseRouting();
+
+       app.UseEndpoints(endpoints =>
+       {
+           endpoints.MapControllerRoute(
+               name: "default",
+               pattern: "{controller=Home}/{action=Index}/{id?}");
+       });
+   }
+   ```
+
+   Here:
+   - **`{controller=Home}`**: The controller parameter specifies that if the controller is not provided in the URL, it defaults to `HomeController`.
+   - **`{action=Index}`**: The action parameter specifies that if the action is not provided in the URL, it defaults to the `Index` action.
+   - **`{id?}`**: The `id` parameter is optional, as indicated by the `?`.
+
+2. **Route Pattern Matching**:
+   The route patterns defined in the `MapControllerRoute()` method are used to match the incoming URL and map it to the appropriate controller action. For example:
+   
+   - URL: `/products/details/5`
+     - Matches to `ProductsController` and its `Details` action with an `id` of `5`.
+   
+   - URL: `/home/index`
+     - Matches to `HomeController` and its `Index` action.
+
+3. **Route Parameters**:
+   Routes often contain parameters that are passed to the controller's action methods. These parameters are typically embedded within the URL.
+
+   **Example**:
+   ```csharp
+   [Route("products/{id}")]
+   public IActionResult Details(int id)
+   {
+       // Logic to fetch product details based on the id
+   }
+   ```
+   - The `{id}` in the route is a placeholder for a dynamic value. When a request is made to `/products/5`, the `Details` action method will receive `5` as the value for the `id` parameter.
+
+4. **Attribute Routing**:
+   - In addition to convention-based routing (defined in `Startup.cs`), you can use **attribute routing** to directly specify routes at the controller or action level using the `[Route]` attribute.
+   
+   **Example of Attribute Routing**:
+   ```csharp
+   [Route("products")]
+   public class ProductsController : Controller
+   {
+       [HttpGet("{id}")]
+       public IActionResult Details(int id)
+       {
+           // Logic for fetching details of the product with the given id
+       }
+   }
+   ```
+   - This approach allows you to define more granular control over routing behavior within controllers and actions.
+
+5. **Route Constraints**:
+   - You can add constraints to routes to limit the type of data accepted for parameters (e.g., integers, GUIDs, etc.).
+   
+   **Example**:
+   ```csharp
+   [Route("products/{id:int}")]
+   public IActionResult Details(int id)
+   {
+       // Only allows numeric values for 'id'
+   }
+   ```
+   - This will only match if `id` is an integer. If a non-integer is passed, it will not route to this action.
+
+6. **Catch-All Routes**:
+   - You can define a catch-all route to handle URLs that don’t match any specific pattern.
+
+   **Example**:
+   ```csharp
+   [Route("products/{*path}")]
+   public IActionResult CatchAll(string path)
+   {
+       // Logic for handling unmatched routes
+   }
+   ```
+   - The `*path` will match any URL that starts with `products/` and capture everything that follows into the `path` parameter.
+
+---
+
+### Routing Workflow Example
+
+Here’s an example of how routing works in a .NET Core MVC application:
+
+1. **Request**: A user requests the URL `/products/details/5`.
+   
+2. **Routing**: The routing system checks the URL against the route pattern in `Startup.cs` or attribute routes. It matches `/products/details/{id}`.
+
+3. **Controller Mapping**: The `ProductsController`’s `Details` action is invoked with the `id` parameter set to `5`.
+
+4. **Action Execution**: The `Details` action executes its logic, such as fetching product data for the given `id`.
+
+5. **Response**: The controller returns a view or data in response to the user.
+
+---
+
+### Summary of Key Routing Concepts in .NET Core MVC:
+1. **Route Configuration**: Defined in `Startup.cs` using `app.UseEndpoints()` or via attribute routing on controllers/actions.
+2. **Route Parameters**: Parameters can be part of the URL (e.g., `id`) and passed to the controller's action.
+3. **Default Routes**: A default route can be set for handling requests without specified parameters.
+4. **Attribute Routing**: Allows defining routes directly on controllers and actions using `[Route]`.
+5. **Route Constraints**: You can restrict parameters to specific types (e.g., `int` or `guid`).
+6. **Catch-All Routes**: Allows catching unmatched routes with a wildcard (`*`).
+
+Understanding how routing works allows you to create clean and maintainable URLs and manage how different HTTP requests are handled in your .NET Core MVC application.
+<br>
+
+## 25. What are _Razor Pages_ in .NET Core?
+Razor Pages is a simplified, page-based programming model introduced in ASP.NET Core that allows developers to build dynamic web applications with a cleaner, more focused approach than traditional MVC (Model-View-Controller) applications.
+
+Razor Pages is designed to make the development of web applications simpler by treating each web page as a standalone entity with its own controller logic, rather than relying on separate controllers and actions as in MVC. This can help reduce complexity, especially for applications where the routing logic is straightforward.
+
+### Key Features of Razor Pages:
+1. **Page-Based**: Each page in a Razor Pages application corresponds to a `.cshtml` file, and it includes the HTML markup along with Razor syntax (for embedding C# code).
+2. **Separation of Concerns**: Each Razor Page consists of two main parts:
+   - **Page Model**: The code-behind file (`.cshtml.cs`) where the page's logic is written. This is analogous to a controller in MVC.
+   - **Razor Page**: The `.cshtml` file containing the HTML markup and Razor syntax for rendering the page.
+
+3. **Routing**: Razor Pages uses a convention-based routing system. The route is automatically determined based on the file path. For example, a page located at `Pages/Products/Index.cshtml` would be accessible via `/Products/Index`.
+
+4. **Cleaner Architecture**: Razor Pages encourages a simpler structure by combining the logic and view into one file pair (e.g., `.cshtml` and `.cshtml.cs`), which can make it easier to manage smaller applications or simple pages.
+
+5. **Built-in Features**: Razor Pages supports many of the features found in traditional MVC applications, such as model binding, validation, data binding, and actions for handling HTTP requests.
+
+---
+
+### How Razor Pages Work:
+
+1. **Page Model** (`.cshtml.cs`):
+   - This is the C# file associated with the Razor Page (`.cshtml` file). It contains the handler methods and properties that deal with the page’s logic, such as fetching data from a database, processing forms, or redirecting after an action.
+   
+   **Example**:
+   ```csharp
+   public class IndexModel : PageModel
+   {
+       public string Message { get; set; }
+
+       public void OnGet()
+       {
+           Message = "Hello, Razor Pages!";
+       }
+   }
+   ```
+
+   In this example, the `OnGet` method is triggered when the page is accessed using the HTTP GET method. It sets a property `Message` that will be displayed in the Razor Page.
+
+2. **Razor Page** (`.cshtml`):
+   - This is the HTML file that defines how the page is rendered in the browser. It can include dynamic data by embedding C# code using Razor syntax (`@` symbol).
+
+   **Example**:
+   ```html
+   @page
+   @model IndexModel
+
+   <h2>@Model.Message</h2>
+   ```
+
+   Here, `@page` indicates this file is a Razor Page. The `@model` directive binds the page to its corresponding PageModel class, and `@Model.Message` dynamically renders the message returned by the `OnGet` method in the page model.
+
+3. **Handlers**: Razor Pages supports different HTTP methods through handler methods such as `OnGet()`, `OnPost()`, `OnPut()`, and `OnDelete()`. These methods map directly to the respective HTTP actions, making it easy to handle different request types.
+
+   **Example**:
+   ```csharp
+   public class ContactModel : PageModel
+   {
+       [BindProperty]
+       public string Name { get; set; }
+
+       public void OnGet()
+       {
+           // Logic for GET request
+       }
+
+       public IActionResult OnPost()
+       {
+           // Handle POST request (e.g., form submission)
+           if (!ModelState.IsValid)
+           {
+               return Page();
+           }
+           // Process data
+           return RedirectToPage("Success");
+       }
+   }
+   ```
+
+---
+
+### Benefits of Razor Pages:
+1. **Simpler and More Focused**: Razor Pages are ideal for simple, page-driven applications with straightforward routing. It reduces the need for separate controller classes.
+   
+2. **Easy to Use**: With Razor Pages, you can have both the view (HTML) and its logic (C# code) in the same place, making it easier to manage and maintain.
+
+3. **Cleaner Folder Structure**: Unlike MVC, where controllers and views are often in separate folders, Razor Pages puts the views and their logic in the same folder, which reduces clutter and simplifies navigation for smaller apps.
+
+4. **Supports All MVC Features**: Razor Pages supports many of the same features as MVC, such as model binding, validation, and strongly-typed views, making it a powerful option for web application development.
+
+5. **Testability**: Razor Pages encourages testable code, as each page can be tested independently.
+
+---
+
+### Routing in Razor Pages:
+
+In Razor Pages, routing is convention-based, which means that the URL structure is automatically mapped to files in the `Pages` directory. For example:
+- A page located at `Pages/Products/Details.cshtml` will automatically be accessible via `/Products/Details`.
+- The `.cshtml.cs` file (the PageModel) corresponds to the Razor Page (`.cshtml`), and its methods (such as `OnGet()` and `OnPost()`) handle requests.
+
+### When to Use Razor Pages:
+- **Single Page Applications**: When you have simple, static pages or small apps where each page is mostly self-contained.
+- **Form-Driven Apps**: For apps where a lot of forms need to be rendered and processed (e.g., contact forms, login forms).
+- **When Simplicity is Key**: If you want an application with fewer layers of separation and simpler structure than the MVC pattern.
+
+---
+
+### Summary of Razor Pages:
+- Razor Pages in .NET Core is a page-based programming model that simplifies the development of web applications.
+- Each page has a `.cshtml` file for HTML and a `.cshtml.cs` file for the page’s logic (handlers).
+- It is ideal for applications where routing is simple and the logic for each page is self-contained.
+- Razor Pages provide easy routing, built-in support for handling form submissions, and better organization for smaller web applications.
+<br>
+
+## 🎯 .NET Core Advanced Topics
+## 21. Discuss the use and configuration of the _appsettings.json_ file.
+
+<br>
+
+## 21. Discuss the use and configuration of the _appsettings.json_ file.
+
+<br>
+
+## 21. Discuss the use and configuration of the _appsettings.json_ file.
+
+<br>
+
+## 21. Discuss the use and configuration of the _appsettings.json_ file.
+
+<br>
+
+## 21. Discuss the use and configuration of the _appsettings.json_ file.
+
+<br>
+
 ---
 
 ## 🤝 Contributing
