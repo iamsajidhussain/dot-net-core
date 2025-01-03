@@ -25,6 +25,7 @@ Welcome to the **.NET Core Interview Questions** repository! Whether you're a be
 Feel free to contribute to this repository and make it even more valuable for the community!
 
 ---
+## 🎯 .NET Core Fundamentals
 ## 1. Explain the file structure of a _.Net 8 project_. 
 The file structure of a .NET 8 project is designed to promote clarity, modularity, and ease of development. It builds on the conventions of earlier versions of .NET but introduces optimizations aligned with modern development practices. Here's an overview of the typical structure and its components:
 
@@ -171,782 +172,687 @@ MyApp/
 ```
 
 ---
-
-This structure is flexible and can be extended or modified based on the project's requirements.
-
-## 1. What is _.NET Core_ and how does it differ from the _.NET Framework_?
-
-**.NET Core** and **.NET Framework** are both ecosystem variations developed by Microsoft. They share similar libraries, syntax and core components, yet have distinctive characteristics and purposes.
-
-### Key Distinctions
-
-#### Dependency on Operating System
-
-   **.NET Core** is built to fluctuate across operating systems, providing reliability from Windows, macOS, and Linux.
-
-   **.NET Framework's** exclusive residence is on Windows.
-
-#### Deployment Mechanisms
-
-   For **.NET Framework**, components are distributed through a Global Assembly Cache (GAC).
-
-   In contrast, **.NET Core** utilizes its open-source library format. All essential dependencies are gathered during the runtime of the hosting system.
-
-#### Stack Structures
-
-   **.NET Core** is modular in design, permitting you to streamline the allocation of resources. This means that resources from .NET Core can be combined with resources from other packages or your code, and any unused resources will be left out of the final deployment.
-
-   **.NET Framework** resources are all-inclusive. Every application constructed within the .NET Framework will use the complete stack of associated resources.
-
-#### API Accessibility
-
-   **.NET Core** highlights a subset of libraries accessible across all operating systems. This ensures consistent performance among various platforms.
-
-   On the contrary, **.NET Framework** provides in-depth access to exclusive Windows APIs, which might not resonate well with non-Windows platforms.
-
-
-### Targets and Use-Case Scenarios
-
-#### .NET Core-Based Projects
-
-- Cloud-First Deployments: Given its lightweight factor, numerous platforms host applications from **.NET Core**.
-- Applications involving containers: **.NET Core** is particularly suitable, bearing its minimalistic resource usage.
-- Web-based applications: **.NET Core** is a strong contender due to its inbuilt support for client-server architectures and cloud-based applications.
-
-#### .NET Framework-Based Projects
-
-- Long-Running Applications: Applications with consistent and prolonged operational times will significantly benefit from using **.NET Framework**.
-- Established Windows-centric applications: **.NET Framework** still reigns as the preferred choice, especially for applications deeply embedded within Windows ecosystems or those leveraging platforms such as Silverlight or WPF.
-- Specific APIs: If your application necessitates specialized Windows APIs that aren't accommodated by **.NET Core**, **.NET Framework** remains the ultimate choice.
 <br>
 
-## 2. Describe the cross-platform capabilities of _.NET Core_.
+## 2. What is _.NET Core_ and how does it differ from the _.NET Framework_?
 
-**.NET Core** is a framework for developing cross-platform applications.
+### **What is .NET Core?**
 
-### Key Cross-Platform Features
+.NET Core is a **cross-platform, open-source, and modern development framework** developed by Microsoft. It enables developers to build applications that can run on **Windows, Linux, and macOS**. It was introduced in 2016 as a lightweight, modular, and high-performance alternative to the traditional .NET Framework.
 
-- **Libraries**: Provides a consistent set of libraries across operating systems. Developers can use these libraries seamlessly, ensuring that functions work consistently across environments.
+---
 
-- **Runtime Environment**: .NET Core applications are run using a runtime environment that adapts to the underlying system. The runtime handles critical tasks like memory management and garbage collection.
+### **Key Features of .NET Core**
+1. **Cross-Platform**: 
+   Applications built with .NET Core can run on Windows, Linux, and macOS, making it ideal for modern, cloud-based, and distributed systems.
 
-- **Cross-Platform Support**: Code written using .NET Core runs on various operating systems without modifications. This allows developers to target a broad range of devices and environments.
+2. **Open Source**:
+   The source code is available on GitHub, allowing contributions from the community and ensuring transparency.
 
-- **Platform-Dependent Code Paths**: In some cases, developers may need to differentiate between OS variants. .NET Core offers mechanisms for handling platform-specific code, enabling conditional execution.
+3. **High Performance**:
+   Optimized for better performance, especially for web applications and microservices.
 
-- **NuGet Packages and Package Management**: .NET Core supports NuGet packages, simplifying the inclusion of third-party libraries. It helps ensure that dependencies are resolved consistently, regardless of the target system.
+4. **Modular Architecture**:
+   Developers can include only the necessary libraries using NuGet packages, resulting in smaller and faster applications.
 
-- **Code Execution**: .NET Core supports multiple development idioms, including Just-In-Time (JIT) compilation and ahead-of-time (AOT) compilation. These features enable code execution tailored to the system, optimizing performance.
+5. **Cloud-Ready**:
+   Designed with cloud-native development in mind, .NET Core integrates well with Docker, Kubernetes, and cloud platforms like Azure, AWS, and GCP.
+
+6. **Unified Development**:
+   .NET Core supports multiple application types:
+   - Web (ASP.NET Core)
+   - Desktop (with .NET Core 3.0+)
+   - Mobile (via Xamarin/.NET MAUI)
+   - Cloud, IoT, and Microservices
+
+7. **Version Side-by-Side Installation**:
+   Multiple versions of .NET Core can run on the same machine without conflicts, making it easier to manage dependencies.
+
+---
+
+### **What is .NET Framework?**
+
+The .NET Framework is an **older, Windows-only development framework** released by Microsoft in 2002. It provides a comprehensive environment for building and running Windows applications, including desktop, web, and enterprise software.
+
+---
+
+### **Key Features of .NET Framework**
+1. **Windows-Centric**: 
+   Designed to run only on Windows operating systems.
+   
+2. **Rich Libraries**:
+   Provides a vast collection of libraries and APIs for Windows development.
+
+3. **Tightly Coupled with Windows**:
+   Deeply integrated with Windows features like WPF, WinForms, and IIS (Internet Information Services).
+
+4. **Mature Ecosystem**:
+   Backed by years of development and support, with a wide range of tools and libraries.
+
+5. **Limited Modern Features**:
+   Does not support cross-platform or modular development, which limits its use in modern cloud and microservice architectures.
+
+---
+
+### **Differences Between .NET Core and .NET Framework**
+
+| **Aspect**               | **.NET Core**                              | **.NET Framework**                       |
+|--------------------------|--------------------------------------------|------------------------------------------|
+| **Platform Support**      | Cross-platform (Windows, Linux, macOS)    | Windows-only                             |
+| **Open Source**           | Fully open source                         | Partially open source                    |
+| **Performance**           | High performance, optimized for modern workloads | Good performance but not as optimized for web/microservices |
+| **Cloud Readiness**       | Built with cloud-native features          | Limited cloud capabilities               |
+| **Application Types**     | Supports web, desktop, mobile, cloud, IoT | Primarily desktop and web (Windows-based) |
+| **Side-by-Side Versions** | Supports multiple versions on the same machine | Not supported; requires upgrading globally |
+| **Library Management**    | Modular (NuGet packages)                  | Monolithic                              |
+| **Development Focus**     | Modern architectures like microservices   | Enterprise applications on Windows       |
+| **Long-Term Vision**      | Actively developed with new features      | Maintenance mode, no new features        |
+
+---
+
+### **Why .NET Core Over .NET Framework?**
+
+1. **Cross-Platform**: Developers can target multiple platforms with a single codebase.
+2. **Performance**: Especially beneficial for applications requiring high throughput (e.g., web servers).
+3. **Future-Proof**: With .NET Framework no longer receiving significant updates, .NET Core (now .NET 6+) is the future of .NET development.
+4. **Modular Design**: Leads to lightweight and faster applications.
+5. **Cloud-Native Support**: Ideal for microservices and containerized applications.
+
+---
+
+### **Scenarios to Use Each**
+
+| **Use .NET Core**                         | **Use .NET Framework**                   |
+|------------------------------------------|------------------------------------------|
+| Need cross-platform support              | Building legacy Windows-only applications |
+| Developing cloud-based or containerized apps | Working with existing .NET Framework libraries |
+| Optimizing for high performance           | Deep integration with Windows features   |
+
+---
+
+### **Interview-Friendly Explanation**
+
+> .NET Core is the modern, open-source, and cross-platform evolution of the .NET ecosystem. Unlike the .NET Framework, which is Windows-only and monolithic, .NET Core allows applications to run on multiple platforms and is designed for high performance, modularity, and cloud-native development. It is the future of .NET, making it ideal for building modern web, mobile, and microservice-based applications. While the .NET Framework is still suitable for maintaining legacy Windows applications, .NET Core is the preferred choice for new projects due to its flexibility and long-term support.
 <br>
 
-## 3. What are the main components of the _.NET Core architecture_?
+## 3. Describe the cross-platform capabilities of _.NET Core_.
 
-The architecture of the .NET Core platform revolves around modularity, flexibility, and platform independence.
+The cross-platform capabilities of .NET Core can be summarized as follows:
 
-### Key Components of .NET Core
+1. **Supported Operating Systems**:  
+   .NET Core applications run seamlessly on **Windows**, **Linux**, and **macOS**, providing true cross-platform support.
 
-#### Core Features
+2. **Write Once, Run Anywhere**:  
+   Developers can write code once and execute it on different platforms without modifications.
 
-- **Framework and BCL**: The BCL (Base Class Library) provides fundamental classes and types, while the Core Framework encompasses core libraries and runtime services.
-  
-- **Garbage Collector**: The GC in .NET Core ensures automatic memory management by alleviating developers from manual memory cleanup, thus minimizing memory leaks and memory management issues.
+3. **Runtime Compatibility**:  
+   .NET Core includes the **CoreCLR runtime**, which is platform-independent, enabling consistent performance across systems.
 
-- **Just-in-Time (JIT) Compiler**: .NET Core translates Intermediate Language (IL) code into machine code, enabling cross-platform execution.
-  
-- **Multi-level Compilation**: .NET Core employs both on-demand **JIT** compilation and **Ahead-of-Time (AOT)** compilation for specific scenarios.
+4. **Command-Line Tools**:  
+   Cross-platform CLI tools (`dotnet`) are available for building, running, and publishing applications on any operating system.
 
-- **Portable PDB Format**: This component simplifies debugging across different environments.
+5. **Docker and Containerization**:  
+   .NET Core supports **Docker** containers, allowing applications to run consistently across diverse environments.
 
-- **Exception Handling and Stack Trace Mechanism**: These built-in mechanisms aid in robust error handling and debugging.
+6. **Development on Any Platform**:  
+   Tools like **Visual Studio**, **Visual Studio Code**, and **JetBrains Rider** make it possible to develop .NET Core applications on any supported platform.
 
-- **Native Interoperability (P/Invoke)**: .NET Core interacts with native code such as DLLs using the P/Invoke mechanism.
+7. **Cloud Integration**:  
+   Fully compatible with cloud platforms like Azure, AWS, and Google Cloud, regardless of the underlying OS.
 
-- **Build and Packaging Tools**: .NET Core's build and packaging mechanisms streamline deployment to various platforms.
+8. **Modular Dependencies**:  
+   Dependencies are included via **NuGet packages**, allowing flexibility and portability across platforms.
 
-#### Tools and Interfaces
-
-- **CLI**: The Command-Line Interface offers a powerful, text-based toolset for building, managing, and deploying .NET Core applications.
-
-- **Global Tooling Management**: This system facilitates the installation and lifecycle management of global .NET Core tools.
-
-#### Execution Environments
-
-- **.NET Core Application Host**: This component hosts and manages the execution of .NET Core applications.
-
-- **Operating System Abstraction**: .NET Core provides a unified set of APIs for interacting with the underlying operating system, ensuring consistency across platforms.
-
-- **Cross-Platform Compatibility Layer**: This layer simplifies multi-platform development by streamlining interactions between the application and various operating systems.
-
-#### Libraries and Dependencies
-
-- **NuGet Package Manager**: The default package manager for .NET Core simplifies the acquisition and management of third-party libraries.
-
-- **.NET Core-specific NuGet Packages**: These packages are tailored for the .NET Core ecosystem.
-
-- **.NET Standard Libraries**: These are a consistent set of APIs shared across .NET platforms.
-
-- **Project References and NuGet Dependency Management**: These tools streamline library dependencies within .NET projects.
-
-#### Compiler and Build Toolset
-
-- **.NET Compiler Platform (Roslyn)**: Roslyn serves as the C# and Visual Basic compiler system, providing dynamic code analysis and transformation capabilities.
-
-- **MSBuild**: This build engine offers comprehensive control over the build process and is notable for its project-file-based build configuration.
-
-- **NuGet Package Restoration**: The .NET tooling automatically restores **NuGet** packages for a project as part of the build process.
-
-#### Containers and Microservices
-
-- **Docker Support**: .NET Core applications can be containerized using Docker for portability and consistency across diverse environments.
-
-#### Network Integration
-
-- **HTTP Components**: .NET Core has a range of HTTP-related tools, including an embedded web server, support for SSL, and client-side HTTP capabilities.
-
-- **WebSocket Support**: The platform supports WebSockets for efficient, bi-directional communication.
-
-#### Data Persistence and Management
-
-- **Entity Framework Core**: As the object-relational mapper (ORM) of choice for .NET Core, this component simplifies database interactions.
-
-- **Data Provider Abstraction**: .NET Core abstracts database providers, allowing applications to work with different databases without extensive modifications.
-
-- **Data Access and Querying Tools**: It offers various methods for robust data access and querying, such as LINQ and ADO.NET.
-
-- **In-memory Data Storage**: For transient data storage requirements, .NET Core provides in-memory data storage capabilities.
-
-- **File I/O and Storage Integration**: The platform includes robust file-handling utilities.
-
-#### Security and Cryptography
-
-- **Authentication and Authorization Frameworks**: .NET Core offers features for secure user and service authentication and authorization.
-
-- **Cryptography Services**: It provides a suite of cryptographic tools for secure data handling.
-
-- **Code Access Security (CAS)**: This component defends against potential security vulnerabilities by controlling code execution.
-
-#### Text and Localization
-
-- **Text Manipulation Utilities**: .NET Core includes a plethora of text-related tools, like string manipulation methods and string encoding controls.
-
-- **Globalization and Localization Components**: These components aid in the management of region-specific and multilingual applications.
-
-#### UI and Presentation
-
-- **Presentation Frameworks**: .NET Core provides frameworks for constructing diverse graphical user interfaces.
-
-- **ASP.NET Core for Web Applications**: This web framework is tailored for building modern web applications and services.
-
-- **Blazor for Web Applications**: This innovative web development framework allows for client-side applications with C#.
-
-- **WPF, WinForms, and Universal Windows Platform (UWP)**: These established frameworks enable desktop and Windows-specific application development.
-
-- **Gtk# for Cross-Platform Desktop Applications**: This component provides a set of .NET bindings for the GTK+ toolkit.
-
-- **Mobile-Specific Frameworks**: For mobile application development, .NET Core integrates with Xamarin.
+This cross-platform nature makes .NET Core ideal for modern, distributed, and global applications.
 <br>
 
-## 4. Explain the _.NET Core CLI_ and its primary functions.
+## 4. What are the main components of the _.NET Core architecture_?
 
-Let's look at the **.NET Core CLI** and its primary operations: **new**, **build**, **publish**, **run**, **test**.
+The **.NET Core architecture** is designed to be modular, high-performance, and cross-platform, enabling developers to build versatile and scalable applications. It consists of several key components that work together to provide a runtime, libraries, and tools for development and execution.
 
-### New
+---
 
-The **new** command initializes a new .NET project using a specific template. You can choose from project types like console applications, web applications, class libraries, and more.
+### **Main Components of .NET Core Architecture**
 
-### Build
+1. **.NET Runtime**
+   - **CoreCLR**: 
+     - The heart of .NET Core, responsible for executing .NET applications.
+     - Includes the Just-In-Time (JIT) compiler to convert Intermediate Language (IL) to native machine code.
+     - Manages garbage collection, exception handling, and thread management.
+   - **CoreRT** (optional alternative):
+     - A runtime with ahead-of-time (AOT) compilation for better startup performance and smaller footprints, ideal for specific scenarios.
 
-With the **build** command, you can compile your source code into an executable format or a library. It also resolves project dependencies and creates an assembly.
+2. **Intermediate Language (IL)**
+   - Code written in .NET Core is compiled into an Intermediate Language (IL), which is platform-independent.
+   - The JIT compiler translates IL to native machine code at runtime, enabling platform portability.
 
-### Publish
+3. **Base Class Library (BCL)**
+   - A collection of fundamental libraries that provide core functionalities such as:
+     - Data types (e.g., `int`, `string`)
+     - File I/O
+     - Networking
+     - Collections
+     - LINQ (Language Integrated Query)
+   - Enables developers to perform essential operations without writing platform-specific code.
 
-The **publish** command gathers necessary components for an application, like the .NET Core runtime, and **prepares it for deployment**. This ensures the target machine has the relevant runtime and runtime components.
+4. **Application Host**
+   - Responsible for launching .NET Core applications.
+   - For example:
+     - On Windows: Executes `.exe` files.
+     - On Linux/macOS: Executes shared object (`.dll`) files via `dotnet` command.
 
-### Run
+5. **SDK and CLI (Command-Line Interface)**
+   - **.NET SDK**: 
+     - Provides tools for development, including the `dotnet` CLI, compilers, and project templates.
+     - Includes `MSBuild` for project builds and management.
+   - **dotnet CLI**:
+     - A cross-platform command-line tool to create, build, publish, and manage .NET Core applications.
+     - Example commands:
+       ```bash
+       dotnet new console    # Create a new console app
+       dotnet build          # Build the app
+       dotnet run            # Run the app
+       ```
 
-The **run** command simplifies the process of executing your application. It does this by **combining building and execution tasks** into a single, more straightforward step.
+6. **ASP.NET Core**
+   - A high-performance, cross-platform framework for building web applications, APIs, and real-time systems.
+   - Built on top of .NET Core, it provides libraries for:
+     - MVC (Model-View-Controller)
+     - Razor Pages
+     - SignalR for real-time communication
+     - Middleware pipeline for request processing
 
-### Test
+7. **Entity Framework Core (EF Core)**
+   - A lightweight and cross-platform Object-Relational Mapping (ORM) tool.
+   - Enables developers to interact with databases using LINQ and strongly typed models without writing raw SQL queries.
 
-Use the **test** command to execute tests in the project. The .NET Core Test Explorer, VS Code, or Continuous Integration (CI) systems like Azure Pipelines or Jenkins can also run these tests.
+8. **Runtime Libraries**
+   - Essential libraries required for running applications, such as:
+     - `System.Runtime`: Core runtime library for application execution.
+     - Libraries for platform-specific functionality, loaded dynamically as needed.
 
-### Simplified Workflow
+9. **CoreFX**
+   - Implements the Base Class Library (BCL).
+   - Contains platform-agnostic APIs and supports both managed and unmanaged code.
 
-These CLI commands simplify the development process. You can transition from creating a new project to building, testing, and running it, all from the command line. These commands save time and make development more efficient.
-<br>
+10. **Platform-Specific Adapters**
+    - Interfaces with the underlying operating system for functionality such as file access, threading, and networking.
+    - Provides platform-specific optimizations to ensure performance and compatibility.
 
-## 5. How do you create a new _.NET Core project_ using the _CLI_?
+11. **NuGet Package Manager**
+    - A package management system for .NET Core.
+    - Allows developers to install, update, and manage external libraries and dependencies.
+    - Example:
+      ```bash
+      dotnet add package Newtonsoft.Json
+      ```
 
-To create a new **.NET Core** project using the command line:
+12. **Host and Deployment Models**
+    - .NET Core supports multiple deployment models:
+      - **Framework-Dependent Deployment (FDD)**: The application relies on the .NET Core runtime installed on the host system.
+      - **Self-Contained Deployment (SCD)**: The application includes the runtime and all dependencies, making it portable and independent of the host environment.
 
-### Step 1: Install the .NET Core SDK
+13. **Cross-Platform Interoperability**
+    - **P/Invoke**: Allows calling native C-style APIs on the host OS.
+    - **Interop Libraries**: Provides integration with platform-specific features.
 
-If you haven't already, install the **.NET Core SDK**. This provides the necessary **tools** and **libraries** for developing in .NET.
+---
 
-### Step 2: Run the `dotnet new` Command
+### **Diagram Representation**
+Here’s a simplified view of the .NET Core architecture:
 
-Use the `dotnet new` command to **create** a new .NET Core project. This command offers various **project templates**, such as for web APIs, console applications, and more.
-
-Here is the syntax:
-
-```bash
-dotnet new <TEMPLATE_NAME> [-n <PROJECT_NAME>] [-o <OUTPUT_DIRECTORY>]
+```
++------------------------------------------------+
+|         Application (Web, Mobile, Desktop)     |
++------------------------------------------------+
+|               Base Class Libraries (BCL)       |
++------------------------------------------------+
+| Runtime (CoreCLR, JIT Compiler, GC, CoreRT)    |
++------------------------------------------------+
+| Platform-Specific Adapters (Windows/Linux/macOS)|
++------------------------------------------------+
 ```
 
-- Substitute **`<TEMPLATE_NAME>`** with the desired project template like `console`, `webapi`, `mvc`, etc.
-- Optionally, set a **`<PROJECT_NAME>`** and an **`<OUTPUT_DIRECTORY>`**.
+---
 
-### Example: Running `dotnet new` to Create a Console App
+### **Key Benefits of the .NET Core Architecture**
+1. **Cross-Platform**: Applications run on multiple operating systems with a consistent experience.
+2. **Modularity**: Developers include only the libraries they need, resulting in smaller and faster applications.
+3. **Performance**: Optimized for modern workloads, including high-throughput web applications.
+4. **Scalability**: Ideal for microservices and cloud-native architectures.
+5. **Flexibility**: Multiple deployment models cater to various hosting environments.
 
-Use the following command:
+---
 
+### **Interview Explanation**
+> The .NET Core architecture consists of key components like the CoreCLR runtime, Base Class Libraries, and the SDK for development. Its modular design, cross-platform support, and integration with tools like ASP.NET Core and EF Core make it a powerful framework for building modern, scalable, and high-performance applications. This architecture allows developers to target various platforms while maintaining a consistent codebase, making it ideal for microservices, cloud-native development, and distributed systems.
+<br>
+
+## 5. Explain the _.NET Core CLI_ and its primary functions.
+
+The **.NET Core CLI (Command-Line Interface)** is a cross-platform tool used to create, build, run, and manage .NET Core applications directly from the terminal or command prompt. It provides a simple and efficient way to interact with .NET Core projects and automate development workflows without needing a graphical IDE.
+
+---
+
+### **Primary Functions of .NET Core CLI**
+
+1. **Project Creation**
+   - Allows developers to create new .NET Core projects with predefined templates for different types of applications.
+   - Example:
+     ```bash
+     dotnet new console    # Creates a new console application
+     dotnet new mvc        # Creates a new ASP.NET Core MVC application
+     dotnet new webapi     # Creates a new ASP.NET Core Web API
+     ```
+   - You can list all available templates with:
+     ```bash
+     dotnet new list
+     ```
+
+---
+
+2. **Building Applications**
+   - Compiles the source code of a project into an executable or library.
+   - Example:
+     ```bash
+     dotnet build
+     ```
+   - By default, the output is placed in the `/bin/Debug` or `/bin/Release` directory, depending on the build configuration.
+
+---
+
+3. **Running Applications**
+   - Executes a compiled .NET Core application directly from the command line.
+   - Example:
+     ```bash
+     dotnet run
+     ```
+   - Combines the build and execution steps for quick testing during development.
+
+---
+
+4. **Managing Dependencies**
+   - Adds, removes, or updates NuGet packages in a project.
+   - Examples:
+     ```bash
+     dotnet add package Newtonsoft.Json      # Add a NuGet package
+     dotnet remove package Newtonsoft.Json   # Remove a NuGet package
+     dotnet restore                          # Restore all dependencies
+     ```
+
+---
+
+5. **Publishing Applications**
+   - Packages the application for deployment, including all dependencies.
+   - Example:
+     ```bash
+     dotnet publish -c Release -r win-x64
+     ```
+   - Options:
+     - `-c` specifies the configuration (Debug or Release).
+     - `-r` specifies the runtime identifier (e.g., `win-x64`, `linux-x64`, `osx-x64`).
+
+---
+
+6. **Testing Applications**
+   - Runs unit tests in a project using supported testing frameworks like xUnit, NUnit, or MSTest.
+   - Example:
+     ```bash
+     dotnet test
+     ```
+   - Automatically builds the project and runs all tests.
+
+---
+
+7. **Project Information**
+   - Provides metadata about the project, including its dependencies and target frameworks.
+   - Example:
+     ```bash
+     dotnet --info              # Information about the installed .NET Core version
+     dotnet list package        # Lists NuGet packages used in the project
+     ```
+
+---
+
+8. **Global Tools**
+   - Installs, updates, or uninstalls tools globally available to the system.
+   - Examples:
+     ```bash
+     dotnet tool install -g dotnetsay    # Install a global tool
+     dotnet tool list -g                # List installed global tools
+     dotnet tool uninstall -g dotnetsay # Uninstall a global tool
+     ```
+
+---
+
+9. **Cleaning Projects**
+   - Removes all build artifacts from a project.
+   - Example:
+     ```bash
+     dotnet clean
+     ```
+
+---
+
+10. **Handling SDKs and Runtimes**
+    - Enables switching between different versions of the .NET SDK or runtime installed on the system.
+    - Example:
+      ```bash
+      dotnet --list-sdks       # Lists all installed SDK versions
+      dotnet --list-runtimes   # Lists all installed runtimes
+      ```
+
+---
+
+### **Common Commands and Use Cases**
+
+| **Command**           | **Description**                                           |
+|-----------------------|-----------------------------------------------------------|
+| `dotnet new`          | Creates a new .NET Core project.                          |
+| `dotnet build`        | Builds the application.                                   |
+| `dotnet run`          | Builds and runs the application.                         |
+| `dotnet publish`      | Packages the app for deployment.                         |
+| `dotnet test`         | Runs tests in the project.                                |
+| `dotnet add package`  | Adds a NuGet package to the project.                     |
+| `dotnet restore`      | Restores NuGet dependencies.                             |
+| `dotnet clean`        | Cleans the build output.                                 |
+| `dotnet tool`         | Manages global and local tools.                          |
+| `dotnet --info`       | Displays environment information.                        |
+
+---
+
+### **Key Features of the .NET Core CLI**
+1. **Cross-Platform**: Works on Windows, Linux, and macOS.
+2. **Integrated Workflow**: Combines development, testing, and deployment into a seamless pipeline.
+3. **Template-Based**: Quickly scaffolds projects with standard templates.
+4. **Automatable**: Easily scriptable for CI/CD pipelines.
+5. **Lightweight**: No need for heavy IDEs, yet powerful enough for full application development.
+
+---
+
+### **Advantages of .NET Core CLI**
+- **Flexibility**: Works in any text editor or integrated terminal.
+- **Rapid Development**: Quickly create and test projects without an IDE.
+- **Automation-Friendly**: Ideal for DevOps pipelines and build scripts.
+- **Consistent Environment**: Ensures uniform development workflows across platforms.
+
+---
+
+### **Interview Explanation**
+> The .NET Core CLI is a powerful and lightweight tool for managing .NET Core projects. It enables developers to create, build, run, test, and deploy applications efficiently across platforms. By offering a wide range of commands and integration with NuGet, the CLI supports rapid development and deployment workflows, making it an essential tool for both local development and CI/CD pipelines. Its cross-platform compatibility and scripting capabilities make it particularly valuable for modern development environments.
+<br>
+
+## 6. How do you create a new .NET Core project using the CLI?
+Creating a new .NET Core project using the **.NET Core CLI** is straightforward and involves a few simple commands. Here's a step-by-step guide:
+
+---
+
+### **Step 1: Open Terminal/Command Prompt**
+1. Open your preferred terminal (Command Prompt, PowerShell, or a terminal on macOS/Linux).
+2. Navigate to the directory where you want to create your project:
+   ```bash
+   cd path/to/your/directory
+   ```
+
+---
+
+### **Step 2: Run the `dotnet new` Command**
+The `dotnet new` command is used to scaffold a new .NET Core project. It supports various templates based on the type of application or library you want to create.
+
+---
+
+### **Common Templates and Commands**
+
+| **Template**        | **Command**                     | **Description**                       |
+|---------------------|---------------------------------|---------------------------------------|
+| Console Application | `dotnet new console`           | Creates a basic console app.         |
+| Web Application     | `dotnet new web`              | Creates an ASP.NET Core web app.     |
+| Web API             | `dotnet new webapi`           | Creates an ASP.NET Core Web API app. |
+| MVC Application     | `dotnet new mvc`              | Creates an ASP.NET Core MVC app.     |
+| Class Library       | `dotnet new classlib`         | Creates a class library project.     |
+| Unit Test Project   | `dotnet new xunit`            | Creates an xUnit test project.       |
+
+---
+
+### **Example 1: Create a Console Application**
+To create a console application:
 ```bash
-dotnet new console -n MyConsoleApp -o MyConsoleAppDir
+dotnet new console -n MyConsoleApp
 ```
 
-- **TEMPLATE_NAME**: `console`
-- **PROJECT_NAME**: `MyConsoleApp`
-- **OUTPUT_DIRECTORY**: `MyConsoleAppDir`
+- `console`: Specifies the template type.
+- `-n MyConsoleApp`: Sets the project name to `MyConsoleApp`. A folder with this name is created, and the project files are placed inside.
 
-This will create a new **console application project** with the name `MyConsoleApp` and place it in the `MyConsoleAppDir` folder.
+---
+
+### **Example 2: Create a Web API**
+To create a Web API:
+```bash
+dotnet new webapi -n MyWebAPI
+```
+
+- This scaffolds a basic ASP.NET Core Web API project with default settings.
+
+---
+
+### **Step 3: Navigate to the Project Directory**
+After creating the project, navigate to the directory:
+```bash
+cd MyConsoleApp
+```
+
+---
+
+### **Step 4: Run the Project**
+Build and run the project to ensure it works:
+```bash
+dotnet run
+```
+
+---
+
+### **Additional Options with `dotnet new`**
+1. **Specify Framework Version**:
+   To target a specific version of .NET (e.g., .NET 6):
+   ```bash
+   dotnet new console -n MyApp --framework net6.0
+   ```
+
+2. **List All Templates**:
+   To see all available templates:
+   ```bash
+   dotnet new list
+   ```
+
+3. **Custom Output Directory**:
+   To create the project in a specific folder:
+   ```bash
+   dotnet new webapi -n MyAPI -o /path/to/output
+   ```
+
+4. **Interactive Mode**:
+   For interactive project creation, use:
+   ```bash
+   dotnet new --interactive
+   ```
+
+---
+
+### **Summary**
+- **Command**: `dotnet new <template> -n <ProjectName>`
+- Example for Console App: `dotnet new console -n MyConsoleApp`
+- Example for Web API: `dotnet new webapi -n MyWebAPI`
 <br>
 
-## 6. Discuss the purpose and use of a `csproj` file in a _.NET Core project_.
+## 7. What is the purpose and use of a _csproj file_ in a _.NET Core_ project.
+The **`.csproj` file** (C# project file) is an XML-based configuration file in a .NET Core project that defines the project's structure, settings, and dependencies. 
 
-The **C# project file** (`*.csproj`) serves as a **configuration manifest** for .NET Core projects, providing a wealth of options for customizing your build process, declaring project dependencies, and adjusting compiler settings.
+### **Purpose:**
+1. **Project Metadata**: Specifies the project name, target framework, output type (e.g., exe or dll), and configurations (Debug/Release).
+2. **Dependency Management**: Lists NuGet packages and project references required for the application.
+3. **Build Process**: Controls how the project is compiled, built, and published.
+4. **Target Framework**: Specifies which .NET runtime (e.g., `net6.0`, `net7.0`) the project uses.
 
-The `csproj` file is based on the more general `msbuild` format and has had several iterations as new features are introduced.
+### **Key Features:**
+- Simplified format in .NET Core compared to .NET Framework.
+- Automatically resolves dependencies using `dotnet restore`.
+- Easily modified to include additional files, settings, or build targets.
 
-### Key Elements
+---
 
-#### Directives for .NET Targeting
-
-- **Target Framework**: Defines the version and profile of the .NET runtime you're targeting. For multi-platform projects like Xamarin, it can differentiate between platforms.
-
-- **Type of Output File**: It is usually a .dll or .exe file.
-
-#### Building and Debugging Configuration
-
-- **Output Type**: Selects the kind of .NET assembly produced.
-- **Debug Symbols Generation**: Decide whether to create debug symbols for better debuggability.
-
-#### Sources Organization
-
-- **Source Files**: Provides a list of source files to be included in the project.
-
-- **Resources**: Offers a way to incorporate non-code files like images or text files.
-
-#### Compiling Directives
-
-- **Conditional Compiles**: Conditional symbols can be set to determine which part of the code gets compiled.
-
-- **Option to Treat Warnings as Errors**: Warnings can be forced to be treated as errors.
-
-- **Optimizations**: You can control whether the compiler optimizes your code for a fast build or a smaller assembly.
-
-#### Dependencies Management
-
-- **Core Assemblies Membership**: The project lists the essential .NET Core assemblies it depends on.
-
-- **NuGet and Direct Dependencies**: The file signals dependencies through multiple methods, helping the framework to acquire necessary packages.
-
-- **Framework Assemblies**: It can include or exclude assemblies that are part of the .NET Core library.
-
-- **Private Library Folder**: It lets you specify a location to search for libraries not on NuGet.
-
-#### Customization Through Directives
-
--  **Custom Tasks**: This feature allows you to run custom tasks as part of the build process.
-
-- **Event-Based Integration**: In some cases, you might want to execute custom actions during specific build events (like "BeforeBuild" or "AfterRebuild").
-
-#### Project Settings
-
-- **Project Type**: It distinguishes between different types of projects like web applications or class libraries.
-
-- **Default Namespace**: You can set a default namespace for classes created in the project.
-
-#### Code Analysis and Best Practices
-
-- **Code Style Rules**: By setting various style rules, you can enforce a consistent coding style in all the projects throughout your solution.
-
-- **Docs and Localization**: It supports inclusion of documentation and localization files.
-
-#### Cross-Platform Considerations
-
-- **Mono and .NET Compact Framework**: It enables developers to target platforms based on Mono or the .NET Compact Framework.
-
-- **Cross-Platform Execution**: For different platform targets or compatibility modes, the setting ensures the correct execution of the project.
-
-### .NET Core SDK Versioning and Evolution
-
-The `.csproj` underwent significant simplifications in conjunction with the release of .NET Core 3.0, aiming to streamline project file definitions and make them more standardized and modular across project types.
-
-Through continuous updates and community feedback, the project file remains central to the management and orchestration of .NET Core projects.
-<br>
-
-## 7. What is the _runtime_ and _SDK_ in _.NET Core_?
-
-The **.NET Core** framework is a versatile, modular platform for developing cross-platform applications. It delivers its core libraries, tools, and runtime as an integrated package.
-
-### Two Essential Components
-
-1. **.NET Core Runtime**: This environment is necessary for executing .NET Core applications. It's typically distributed as a single deployable unit, ensuring that applications are self-contained and alleviating the need for separately installed .NET runtimes.
-
-2. **.NET Core SDK**: Integrating essential tools like the compiler, NuGet package manager, and MSBuild, the SDK empowers developers to build, test, and publish applications. Its comprehensive suite of libraries and APIs supports development across a range of applications and industries.
-
-### Compatibility Considerations
-
-The version of the .NET Core runtime specifies the advertised **API compatibility level** and **previously introduced feature sets**.
-
-Developers outline any framework version dependencies in their applications through the use of the `<TargetFramework>` element in the project file.
-
-### Code Example: Project File with Target Framework
-
+### **Example**:
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
 </Project>
 ```
 
-### Managing Multiple .NET Core Versions
+### **Interview Summary**:
+The `.csproj` file is essential for managing a .NET Core project's configurations, dependencies, and build settings, ensuring the project compiles and runs correctly.
+<br>
 
-The .NET Core SDK provides a command-line tool, `dotnet`, which enables you to monitor various installed versions and switch between them seamlessly. Use the `global.json` file in your project to fix the specific SDK version for your project or a range of projects.
+## 8. What is the _runtime_ and _SDK_ in _.NET Core_?
+In .NET Core, **runtime** and **SDK** are two distinct components that work together to build and run applications. Here's an interview-ready explanation:
 
-### Code Example: Global.json
+---
 
+### **Runtime**
+The runtime is the execution environment for .NET Core applications. It provides:
+- **Libraries**: Core libraries required for running applications, such as `System.*`.
+- **Just-In-Time (JIT) Compiler**: Converts Intermediate Language (IL) code into machine code at runtime.
+- **Garbage Collection (GC)**: Manages memory allocation and cleanup.
+
+**Purpose**: 
+To run .NET Core applications.
+
+**Example**: 
+If you only want to execute a .NET Core application (not develop it), you only need the runtime installed.
+
+**Common Runtimes**:
+- **.NET Core Runtime**: For running console and class library applications.
+- **ASP.NET Core Runtime**: Includes the .NET Core runtime and additional libraries for running web apps.
+
+---
+
+### **SDK (Software Development Kit)**
+The SDK is a complete toolkit for developing .NET Core applications. It includes:
+- **CLI Tools**: Commands like `dotnet build`, `dotnet run`, and `dotnet publish`.
+- **Runtime**: Ensures the application can execute during development.
+- **Compilers**: For languages like C# and F#.
+- **Project Templates**: For scaffolding new applications (e.g., `dotnet new console`).
+
+**Purpose**: 
+To develop, build, and run .NET Core applications.
+
+**Example**: 
+Developers need the SDK installed to create and compile .NET Core projects.
+
+---
+
+### **Key Differences**
+| **Aspect**            | **Runtime**                       | **SDK**                          |
+|-----------------------|-----------------------------------|----------------------------------|
+| **Usage**             | Runs applications.               | Develops, builds, and runs apps.|
+| **Includes**          | Core libraries, JIT, GC.         | Runtime + CLI tools, compilers. |
+| **Audience**          | End-users, server environments.  | Developers.                     |
+
+---
+
+### **How They Work Together**
+- **Runtime**: Essential for executing the application.
+- **SDK**: Provides everything needed to create, build, and test the application, including the runtime.
+
+### **Interview Summary**:
+The **runtime** is essential to execute .NET Core applications, while the **SDK** provides all the tools needed for developing and building those applications.
+<br>
+
+## 9. How would you manage different versions of the _.NET Core SDK_ on the same machine?
+To manage different versions of the **.NET Core SDK** on the same machine, you can use the following methods:
+
+### 1. **Using Global.json**
+- **Purpose**: `global.json` allows you to specify a specific version of the .NET SDK for a project or solution.
+- **How to Use**:
+  1. Create a `global.json` file at the root of your project or solution.
+  2. Specify the desired SDK version inside the file.
+  
+  Example:
+  ```json
+  {
+    "sdk": {
+      "version": "6.0.100"
+    }
+  }
+  ```
+
+- **Effect**: When you run any `dotnet` command in that directory, it will use the specified SDK version, regardless of other versions installed on the system.
+
+---
+
+### 2. **Using Multiple SDK Versions**
+- **Purpose**: The .NET SDK supports having multiple versions installed on the same machine.
+- **How to Use**: Simply install different SDK versions side by side. You can check all the versions installed using:
+  ```bash
+  dotnet --list-sdks
+  ```
+- **Effect**: The `dotnet` CLI will automatically use the version specified in the `global.json` file or, if no file is found, it will use the latest version installed.
+
+---
+
+### 3. **Switching Between SDK Versions**
+- If you need to use a different SDK version temporarily, you can uninstall and install the required version using the .NET installer from [official .NET downloads](https://dotnet.microsoft.com/download).
+
+---
+
+### 4. **Using Docker Containers**
+- **Purpose**: For isolated environments, you can use Docker to run specific versions of the .NET SDK without affecting your host machine.
+- **How to Use**: Use official .NET Docker images to create containers with different SDK versions.
+  
+  Example:
+  ```bash
+  docker run -it mcr.microsoft.com/dotnet/sdk:6.0 bash
+  ```
+
+---
+
+### **Interview Summary**:
+To manage different versions of the .NET Core SDK on the same machine, you can use the `global.json` file to specify the SDK version for your project. You can also install multiple SDK versions side by side, and the .NET CLI will automatically choose the version based on the `global.json` or use the latest available. Additionally, Docker can be used to create isolated environments for different SDK versions.
+<br>
+
+## 10. What is the purpose of the _global.json_ file?
+The **`global.json`** file is used to specify the version of the .NET SDK that should be used for a particular project or solution. This ensures consistency across different environments, particularly when multiple versions of the .NET SDK are installed on the same machine.
+
+### **Purpose of `global.json`:**
+1. **SDK Version Control**: It allows you to define the exact version of the .NET SDK to use for a project, overriding the global version installed on the machine.
+2. **Consistency**: Ensures that all developers or build environments are using the same SDK version, preventing version mismatches that could cause compatibility issues.
+3. **Compatibility**: Useful for managing different SDK versions for various projects that require specific versions of .NET Core.
+
+### **Structure of `global.json`:**
 ```json
 {
   "sdk": {
-    "version": "3.1.402"
+    "version": "6.0.100"
   }
 }
 ```
+
+- **`version`**: Specifies the .NET SDK version to be used.
+
+### **How It Works:**
+- When you run any `dotnet` command (e.g., `dotnet build`, `dotnet run`), it checks for a `global.json` file in the project directory or its parent directories. If found, it uses the SDK version specified in the file.
+- If no `global.json` is found, the latest installed SDK is used.
+
+### **Interview Summary**:
+The `global.json` file ensures that the correct version of the .NET SDK is used for a specific project, providing version control and consistency across different environments or developers working on the same project.
 <br>
 
-## 8. How would you manage different versions of the _.NET Core SDK_ on the same machine?
-
-You can use **`global.json`** files and specify the version of the .NET SDK you wish to target within a project. When you run `.net build` or `.net run` in a directory that contains a global.json file, the SDK version specified in that file takes precedence over any other installed versions.
-
-Here is a code snippet showing how to write a `global.json` file:
-
-```json
-{
-  "sdk": {
-    "version": "2.1.402"
-  }
-}
-```
-<br>
-
-## 9. What is the purpose of the `global.json` file?
-
-The `global.json` file in a .NET Core project defines the version of the SDK used and allows for **multi-project management**.
-
-It also assists with:
-
-- **Managing SDK Versions**: By setting the `sdk` field to a specific version, you ensure consistent behavior across development environments and CI/CD pipelines. Additionally, the `allowPrerelease` flag gives you control over using preview versions.
-
-- **Setting Default Paths for Global Packages and Tools**: The `packageManagement` and `tools` fields can be helpful in specifying directory paths for global tools and packages. This can simplify configuration on new machines or during deployment. For instance, you can use it to set up the same configuration across machines of your team.
-
-- **Coordinating Multi-Project Solutions**: A `global.json` file helps manage **consistent SDK versions and ensures that inter-related projects within a solution are either using the same version or compatible ones. This coordination is essential for projects that *depend* on each other, especially in a CI/CD environment.
-
-### Global SDK vs. Local SDK
-
-The SDK version specified in the `global.json` usually supersedes the locally installed SDK version unless the local version is explicitly pinned, or there's a higher priority, such as in a project-specific `global.json` file.
-
-**When shared**, the `global.json` settings apply to all projects within its directory and those in subdirectories unless they have their own `global.json` files, which would then take precedence.
-
-**If you're pushing software to production**, always account for SDK versions and set up your CI/CD pipelines accordingly. For consistency and to guard against unintended version updates, you should generally specify the SDK versions in your build configurations, rather than relying solely on the local environment of the build agent or developer machines.
-<br>
-
-## 10. Can you explain the _Directory Structure_ of a typical _.NET Core project_?
-
-The directory structure of a typical .NET Core project is designed to keep code organized and manageable.
-
-### Key Directories
-
-- **src**: Contains the core application and all of its modules.
-
-- **tests**: Houses unit, integration, or end-to-end test projects.
-
-- **docs**: For documentation files.
-
-- **artifacts**: Not always present, but used for build outputs (e.g., binaries).
-
-- **build**: For build-related scripts or files.
-
-- **.github**: GitHub-specific files like workflows or issue templates.
-
-- **.vscode**: Configurations specific to Visual Studio Code.
-
-### Core Files
-
-- **global.json**: Might specify the version of the .NET SDK to use.
-  
-- **.gitignore**: Lists files and folders to exclude from version control.
-  
-- **.editorconfig**: Gives project-wide text editor settings.
-  
-- **.wslconfig**: This is an optional file which you can create to configure the Windows Subsystem for Linux
-
-- **Dockerfile**: If the project uses Docker, this defines the container.
-
-- **Makefile**: Optional file used to automate tasks on Unix-based systems.
-
-### Build-Related Files
-
-- **.editorconfig**: Provides consistent coding styles for multiple developers working across various editors and IDEs.
-
-- **global.json**: Helps specify the SDK version used for the project.
-
-- **MyApp.sln**: Solution file associated with Visual Studio, listing project dependencies and configurations.
-
-- **nuget.config**: Configures NuGet package sources.
-
-- **local-mira-tool.manifest**: Specifies the version targeted by Mira, a cross-platform CLI.
-
-### Dynamic/Generated Files
-
-- **appsettings.json**: JSON configuration file translated to `Configuration` objects.
-
-- **appsettings.Development.json**: App-specific data for the Development environment.
-
-- **appsettings.Production.json**: Environment-specific data for the Production environment.
-
-- **MyApp.deps.json**: Dependency details.
-
-- **MyApp.runtimeconfig.json**: Runtime-related information like shared frameworks and native libraries.
-
-### Version Control
-
-- **.git**: Git repository.
-
-- **.gitattributes**: Used to customize how versions of files should be handled.
-
-- **.gitignore**: Lists files and folders to be excluded from version control.
-<br>
-
-## 11. How do you add and manage _NuGet packages_ in a _.NET Core project_?
-
-Working with **NuGet** in a **.NET Core** project is seamless, thanks to Visual Studio and the dotnet CLI. Whether you're a fan of the GUI or prefer command-line superiority, you can manage NuGet packages without breaking a sweat.
-
-### Using NuGet Package Manager UI
-
-1. **Locate NuGet Package Manager**:
-   - In Visual Studio, access it via `Project > Manage NuGet Packages...`.
-
-2. **Browse for Packages**:
-   - Look for packages in the NuGet.org online repository under the "Browse" tab.
-
-3. **Install Packages**:
-   - Click "Install" for the desired package.
-
-4. **Verify Installations**:
-   - Check the "Installed" tab to see the installed packages.
-
-#### Useful Tips
-
-- **Version Management**: Click on the installed package to see other available versions.
-  
-- **Updating Packages**: Navigate to the "Updates" tab to see which packages have newer versions.
-
-- **Uninstalling**: Use the "Installed" tab to remove packages.
-
-### Managing Packages via .NET CLI
-
-Use the `dotnet add package` and `dotnet remove package` commands.
-
-#### Syntax
-
-- **Add Package**:
-  ```bash
-  dotnet add package PackageName
-  ```
-- **Remove Package**:
-  ```bash
-  dotnet remove package PackageName
-  ```
-
-- **Update Package**:
-  ```bash
-  dotnet add package PackageName --version 1.2.3
-  ```
-
-
-#### Using Private Feeds
-
-- **Configuring**: In `nuget.config`, define the source, or use `-s`/`--source` in the CLI. E.g.:
-  ```bash
-  dotnet add package CompanyPackage --source https://NuGetServer.com/nuget/MyPrivateFeed/
-  ```
-
-  **Authentication**: For authenticated feeds, use `.config` files or `-k`/`--api-key` along with the command.
-
-
-### Using NuGet.Config
-
-- **Creating**: Use the `new` command to create a config file in your solution folder:
-  ```bash
-  dotnet new nugetconfig
-  ```
-
-- **Configuring Sources**: With the `add source`  command:
-  ```bash
-  dotnet nuget add source https://AnotherFeed.com/v3/index.json --name AnotherFeed
-  ```
-
-  And to remove a source:
-  ```bash
-  dotnet nuget remove source AnotherFeed
-  ```
-
-- **Setting Default Push Source**: Utilize the `push` command:
-  ```bash
-  dotnet nuget push -t API_KEY MyPackage.1.0.0.nupkg
-  ```
-  Use the `-s`/`--source` switch to specify the desired push source.
-
-### Docker and NuGet
-
-To use a cache layer when adding packages in a Docker container, first retrieve and add the `.csproj` file to the container before executing the `dotnet restore` command. This approach speeds up the build process.
-
-#### Dockerfile Example
-
-```Dockerfile
-# Copy .csproj and nuget.config and restore as distinct layers
-COPY nuget.config ./
-COPY Orcha.csproj ./
-RUN dotnet restore
-```
-<br>
-
-## 12. Explain the role of the _NuGet package manager_.
-
-The **NuGet Package Manager** simplifies the process of integrating external libraries and components into your project. It's a core element in the Microsoft toolchain and is closely integrated with .NET Core, Visual Studio, and Visual Studio Code.
-
-### Key NuGet Package Manager Capabilities
-
-1. **Package Management**: NuGet serves as a centralized repository for .NET packages, where developers can easily search, discover, and install packages.
-
-2. **Dependency Management**: NuGet tracks and resolves dependencies between packages, ensuring that all required components are downloaded and installed.
-
-3. **Version Control**: Different versions of the same package are maintained, giving developers flexibility in choosing the most suitable one for their project.
-
-4. **Project Scopes**: NuGet allows you to define packages at various levels such as the global package store, the project-local store, or as a package reference within a project file.
-
-5. **Commands via CLI**: Besides GUI integration, NuGet supports a powerful command-line interface for streamlined package management.
-
-6. **Publishing Packages**: It facilitates package creators in distributing their libraries to the global NuGet repository for wider consumption.
-
-7. **Extensibility**: NuGet allows for easy management of third-party tools and integrations, beyond just code libraries.
-
-### NuGet in Action: A Simple Example
-
-Here is what you should do:
-
-- In Visual Studio, open a .NET Core project.
-- Right-click on the project in the Solution Explorer and choose "Manage NuGet Packages".
-- Click on "Browse" and search for "Newtonsoft.Json", a commonly used JSON parsing library.
-- Click "Install" to add the package to your project.
-
-This will modify your project file, adding a `<PackageReference>` to `Newtonsoft.Json` and any of its dependencies.
-<br>
-
-## 13. Describe the process of _publishing a .NET Core application_.
-
-When publishing a **.NET Core application**, you compile it and its dependencies for deployment. .NET Core supports various publishing methods and configurations to cater to your specific requirements.
-
-### Various Publishing Methods
-
-1. **Framework-Dependent**: Publishes the app without the .NET Core runtime. It indicates which version to use on the target system. The app will only run on systems with matching or newer .NET Core runtimes.
-
-2. **Self-Contained**: Packages the app with the .NET Core runtime, allowing it to run on systems without an existing .NET Core installation.
-
-3. **Portable**: Typically suitable for use-cases like USB flash or external drives.
-
-4. **Ready-To-Run**: Optimizes the app startup time by pre-compiling specific libraries to native code. RTR has the added benefit of being useful for promoting cross-gen and unification common. Thus, **RTR Is the default for these modes vs traditional JIT**.
-
-### Publishing Commands
-
-The Dotnet Command Line produces build artifacts onto the file system. 
-
-- **dotnet build** compiles the app.
-- **dotnet publish** copies necessary files to a target path, to make it ready for deployment.
-
-### Project Files for Publishing
-
-The following configuration settings can be specified in your project file to influence the publish process:
-
-- **PublishWithAspNetCoreTargetManifest**: For web apps, this setting specifies whether the app should be published with or without an AspNetCore target manifest.
-
-- **PublishTrimmed**: When set to 'true', minimizes the number of assemblies included in the published output based on necessary. This improves performance & size.
-
-
-
-An example DOTNET CLI command for publishing a self-contained app would look like this:
-
-```sh
-dotnet publish -c Release --self-contained --runtime linux-x64
-```
-
-And for ready-to-run (RTR), it would be:
-
-```sh
-dotnet publish -c Release --runtime linux-x64 --self-contained false --output rtr/path
-```
-
-When the **Ready-To-Run** is specified, the `--self-contained` and `--output` are disabled.
-
-For deploying to Linux or Windows in **framework-dependent** mode:
-
-
-
-```sh
-dotnet publish -c Release --runtime linux-x64
-```
-
-```sh
-dotnet publish -c Release --runtime win-x64
-```
-
-### Repositories, NuGet & Web
-
-
-
--  **Repository**: Useful for sharing the project's source code publicly. Code hosting platforms such as GitHub, GitLab or Bitbucket support repository management.
-  
-- **NuGet Package**: Ideal for publishing libraries as it simplifies their consumption. Once you've published a library to NuGet, others can include it as a dependency in their projects.
-  
--  **Web Host**: For web applications and services, hosting them with a web server is essential.  When you deploy to a web server, ensure your web.config file is correctly configured for its needs. Additionally, when using Kestrel, ensure it's accessible through a proxy server.
-<br>
-
-## 14. What is a _.NET Standard_ and how does it relate to _.NET Core_?
-
-**.NET Standard** serves as a formalized set of APIs, ensuring cross-compatibility among different .NET implementations. Essentially, it is a standardized interface that abstracts from the underlying platform.
-
-### Motivation for .NET Standard
-
-Before .NET Standard, developers had to detect and account for the specific platform they were targeting, such as UWP or different versions of .NET Framework. This diversity resulted in interoperability challenges.
-
-By establishing a standardized target across .NET implementations, **.NET Standard** simplifies multi-platform development, making it more cohesive and intuitive.
-
-### Evolution of Development Platforms
-
-While '.NET Core' and '.NET Framework' cater to specific use cases, **.NET Standard** essentially aims for cross-compatibility. As of 2020, Microsoft advocated for using '.NET Core' for newer projects.
-
-Here is the overview:
-
-- **.NET Framework**: It's a mature, all-in-one development platform for Windows-based applications.
-- **.NET Core**: A streamlined, open-source platform shattering Windows allegiance, targeting both Windows and non-Windows systems.
-- **.NET 5**: A unification of ".NET Core" and ".NET Framework".
-- **.NET 6 **: The next leap, evolving further from ".NET 5".
-
-Given this diverse landscape, **.NET Standard** acts as an umbrella platform with defined capabilities and APIs, ensuring consistent behavior across different .NET implementations.
-<br>
-
-## 15. How do you create a _class library_ in _.NET Core_?
-
-To create a **Class Library** in .NET Core, you can use either Visual Studio or the `dotnet` command-line interface.
-
-### Using Visual Studio
-
-- Open Visual Studio.
-- Select "Create a new project".
-- Choose the "Class Library" template under the "C#" or appropriate language heading.
-- Specify the project name and location.
-- Click "Create".
-
-### Using the .NET CLI
-
-1. **Create the Project**: Open a terminal and navigate to the desired directory. Run the following command:
-
-   ```bash
-   dotnet new classlib -n MyLibrary
-   ```
-
-   Replace `MyLibrary` with your preferred project name.
-
-The above command will generate a `.csproj` file, which is the project file for the class library.
-
-2. **Configure the Project Reference**:
-
-   You can either manually add the reference or use the `dotnet add reference` command. Manually, you would do this editing the `.csproj` file:
-
-   ```xml
-   <ItemGroup>
-       <ProjectReference Include="..\Path\To\AnotherProject.csproj" />
-   </ItemGroup>
-   ```
-
-   Using the command line:
-
-   ```bash
-   dotnet add reference ..\Path\To\AnotherProject.csproj
-   ```
-
-   This connects your class library to your other projects or external libraries.
-
-### Visual Studio Code
-
-You can create a class library in Visual Studio Code using the .NET CLI. Here is how:
-
-1. **Initialize the Project Folder**:
-
-   Open the terminal in the desired directory and run:
-
-   ```bash
-   dotnet new sln -n MySolution
-   ```
-
-   Replace `MySolution` with your preferred name.
-
-2. **Create the Library Project**:
-
-   Run the following commands in the terminal:
-
-   ```bash
-   dotnet new classlib -n MyLibrary -o MyLibrary
-   ```
-
-   This creates a new directory named `MyLibrary` and initializes it as a class library.
-
-3. **Add the Library to the Solution**:
-
-   To include the library in the solution, run:
-
-   ```bash
-   dotnet sln add MyLibrary/MyLibrary.csproj
-   ```
-
-4. **Link to Other Projects or Libraries**:
-
-   You can **add a project reference**:
-
-   ```bash
-   dotnet add reference ..\Path\To\AnotherProject.csproj
-   ```
-
-   Or **add a package reference**:
-
-   ```bash
-   dotnet add package MyPackage
-   ```
-
-5. **Build the Solution**:
-
-   To ensure everything is linked up correctly, build the solution with:
-
-   ```bash
-    dotnet build
-   ```
-
-   The class library and any linked projects should build without errors.
-<br>
+## 🎯 .NET Core Dependencies and Libraries
+## 11. 
 ---
 
 ## 🤝 Contributing
