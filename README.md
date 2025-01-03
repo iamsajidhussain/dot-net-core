@@ -7,9 +7,20 @@ This repository contains a comprehensive collection of **.NET Core interview que
 ## 🚀 Table of Contents
 
 1. [Explain the file structure of a .Net 8 project.](#1-explain-the-file-structure-of-a-net-8-project)
-2. [What is _.NET Core_ and how does it differ from the _.NET Framework_?](#core-topics)
-3. [Contributing](#contributing)
-4. [License](#license)
+2. [What is .NET Core and how does it differ from the .NET Framework?](#2-what-is-net-core-and-how-does-it-differ-from-the-net-framework)
+3. [Describe the cross-platform capabilities of .NET Core.](#3-describe-the-cross-platform-capabilities-of-net-core)
+4. [What are the main components of the .NET Core architecture?](#4-what-are-the-main-components-of-the-net-core-architecture)
+5. [Explain the .NET Core CLI and its primary functions.](#5-explain-the-net-core-cli-and-its-primary-functions)
+6. [How do you create a new .NET Core project using the CLI?](#6-how-do-you-create-a-new-net-core-project-using-the-cli)
+7. [What is the purpose and use of a csproj file in a .NET Core project.](#7-what-is-the-purpose-and-use-of-a-csproj-file-in-a-net-core-project)
+8. [What is the runtime and SDK in .NET Core?](#8-what-is-the-runtime-and-sdk-in-net-core)
+9. [How would you manage different versions of the .NET Core SDK on the same machine?](#9-how-would-you-manage-different-versions-of-the-net-core-sdk-on-the-same-machine)
+10. [What is the purpose of the global.json file?](#10-what-is-the-purpose-of-the-globaljson-file)
+11. [How do you add and manage NuGet packages in a .NET Core project?](#11-how-do-you-add-and-manage-nuget-packages-in-a-net-core-project)
+12. [Explain the role of the NuGet package manager.](#12-explain-the-role-of-the-nuget-package-manager)
+13. [Describe the process of publishing a .NET Core application.](#13-describe-the-process-of-publishing-a-net-core-application)
+14. [What is a .NET Standard and how does it relate to .NET Core?](#14-what-is-a-net-standard-and-how-does-it-relate-to-net-core)
+15. [How do you create a class library in .NET Core?](#15-how-do-you-create-a-class-library-in-net-core)
 
 ---
 
