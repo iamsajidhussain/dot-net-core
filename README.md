@@ -6,8 +6,8 @@ This repository contains a comprehensive collection of **.NET Core interview que
 
 ## 🚀 Table of Contents
 
-1. [Introduction](#introduction)
-2. [Core Topics](#core-topics)
+1. [Explain the file structure of a .Net 8 project.](#1-explain-the-file-structure-of-a-net-8-project)
+2. [What is _.NET Core_ and how does it differ from the _.NET Framework_?](#core-topics)
 3. [Contributing](#contributing)
 4. [License](#license)
 
@@ -25,6 +25,154 @@ Welcome to the **.NET Core Interview Questions** repository! Whether you're a be
 Feel free to contribute to this repository and make it even more valuable for the community!
 
 ---
+## 1. Explain the file structure of a _.Net 8 project_. 
+The file structure of a .NET 8 project is designed to promote clarity, modularity, and ease of development. It builds on the conventions of earlier versions of .NET but introduces optimizations aligned with modern development practices. Here's an overview of the typical structure and its components:
+
+---
+
+### **1. Solution File (.sln)**
+The `.sln` file is the entry point for managing the project in Visual Studio or other IDEs. It organizes multiple projects within a single solution, making it useful for large applications with separate tiers (e.g., API, frontend, shared libraries).
+
+---
+
+### **2. Project File (.csproj)**
+The `.csproj` file contains metadata and settings for the project:
+- Dependencies (NuGet packages)
+- Build configurations
+- Target framework (e.g., `net8.0`)
+- Other build properties like output paths and resources.
+
+---
+
+### **3. Default Folder Structure**
+Below is the standard folder layout in a .NET 8 project:
+
+#### **a. `wwwroot/`**
+   - Applicable for ASP.NET Core projects.
+   - Serves static files like CSS, JavaScript, and images.
+   - Contains subfolders for static content: `css/`, `js/`, `images/`.
+
+#### **b. `Controllers/`**
+   - Stores the controller classes that handle HTTP requests.
+   - Typically used in MVC and Web API projects.
+
+#### **c. `Models/`**
+   - Contains classes representing data structures or entities.
+   - Often includes DTOs (Data Transfer Objects) and view models.
+
+#### **d. `Views/`**
+   - Used in MVC projects for Razor views.
+   - Organized into subfolders corresponding to controller names.
+
+#### **e. `Pages/`**
+   - Present in Razor Pages projects.
+   - Stores `.cshtml` files for Razor pages along with their code-behind files (`.cshtml.cs`).
+
+#### **f. `Data/`**
+   - Holds classes related to database contexts (e.g., `ApplicationDbContext`).
+   - May include data seeding, migrations, or repositories.
+
+#### **g. `Services/`**
+   - Contains business logic or service classes.
+   - Organized based on functionality (e.g., authentication, email service).
+
+#### **h. `Helpers/`**
+   - Contains utility or helper classes for common tasks.
+
+#### **i. `Properties/`**
+   - Stores application properties, like `launchSettings.json`, which configures environment settings for debugging.
+
+#### **j. `Middleware/`**
+   - Custom middleware classes for handling HTTP requests and responses.
+
+#### **k. `Migrations/`**
+   - Contains Entity Framework Core migration files for database schema changes.
+
+#### **l. `Tests/`**
+   - Separate project for unit and integration tests.
+   - Follows the `ProjectName.Tests` naming convention.
+
+---
+
+### **4. Key Files**
+#### **a. `Program.cs`**
+   - The entry point for the application.
+   - Configures the application, sets up the dependency injection (DI) container, and defines the middleware pipeline.
+   - Simplified in .NET 6+ with the minimal hosting model.
+
+#### **b. `appsettings.json`**
+   - Configuration file for application settings.
+   - May have environment-specific versions like `appsettings.Development.json`.
+
+#### **c. `launchSettings.json`**
+   - Contains profiles for debugging the application locally.
+
+#### **d. `.gitignore`**
+   - Specifies files and directories to ignore in version control.
+
+#### **e. `Dockerfile` and `docker-compose.yml`**
+   - Configuration files for containerizing the application.
+
+#### **f. `.editorconfig`**
+   - Defines code style rules for the project.
+
+---
+
+### **5. Additional Components**
+#### **a. `Areas/`**
+   - Used for organizing features into modules in MVC projects.
+   - Contains subfolders for `Controllers`, `Views`, and `Models` within each area.
+
+#### **b. `Components/`**
+   - Stores reusable Razor components in Blazor projects.
+
+#### **c. `Shared/`**
+   - Houses shared resources or components, particularly in Blazor or projects with microservices.
+
+#### **d. `Resources/`**
+   - Stores localization files for multi-language support.
+
+---
+
+### **Example Structure**
+```
+MyApp/
+├── MyApp.sln
+├── MyApp.csproj
+├── wwwroot/
+│   ├── css/
+│   ├── js/
+│   ├── images/
+├── Controllers/
+│   ├── HomeController.cs
+│   ├── ApiController.cs
+├── Models/
+│   ├── User.cs
+│   ├── Product.cs
+├── Views/
+│   ├── Shared/
+│   │   ├── _Layout.cshtml
+│   ├── Home/
+│   │   ├── Index.cshtml
+├── Pages/
+│   ├── Index.cshtml
+│   ├── About.cshtml
+├── Data/
+│   ├── ApplicationDbContext.cs
+│   ├── Migrations/
+├── Services/
+│   ├── EmailService.cs
+├── Program.cs
+├── appsettings.json
+├── launchSettings.json
+├── Dockerfile
+├── .gitignore
+└── .editorconfig
+```
+
+---
+
+This structure is flexible and can be extended or modified based on the project's requirements.
 
 ## 1. What is _.NET Core_ and how does it differ from the _.NET Framework_?
 
