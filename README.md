@@ -852,7 +852,338 @@ The `global.json` file ensures that the correct version of the .NET SDK is used 
 <br>
 
 ## 🎯 .NET Core Dependencies and Libraries
-## 11. 
+## 11. How do you add and manage _NuGet packages_ in a _.NET Core_ project?
+Adding and managing **NuGet packages** in a .NET Core project can be done using the **.NET CLI**, **Visual Studio**, or by directly editing the `.csproj` file. Here's a breakdown of each method:
+
+---
+
+### **1. Using .NET CLI**
+#### **Add a Package**:
+- Use the `dotnet add package` command:
+  ```bash
+  dotnet add package <PackageName> --version <Version>
+  ```
+  Example:
+  ```bash
+  dotnet add package Newtonsoft.Json --version 13.0.3
+  ```
+- Omitting `--version` installs the latest version.
+
+#### **Update a Package**:
+- Update a package to the latest version:
+  ```bash
+  dotnet add package <PackageName> --version <NewVersion>
+  ```
+
+#### **Remove a Package**:
+- Remove a package:
+  ```bash
+  dotnet remove package <PackageName>
+  ```
+
+#### **List Installed Packages**:
+- List all installed packages:
+  ```bash
+  dotnet list package
+  ```
+
+---
+
+### **2. Using Visual Studio**
+#### **Add a Package**:
+1. Right-click on the project in Solution Explorer.
+2. Select **Manage NuGet Packages**.
+3. Search for the package in the **Browse** tab.
+4. Click **Install**.
+
+#### **Update a Package**:
+1. Open the **Updates** tab in the **Manage NuGet Packages** window.
+2. Select the package to update and click **Update**.
+
+#### **Remove a Package**:
+1. Open the **Installed** tab.
+2. Select the package and click **Uninstall**.
+
+---
+
+### **3. Editing the .csproj File Directly**
+- Add a package reference manually:
+  ```xml
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  ```
+- Save the file, and the changes are applied during the next build.
+
+---
+
+### **4. Restoring Packages**
+- To ensure all packages are installed/restored (e.g., after cloning a project):
+  ```bash
+  dotnet restore
+  ```
+
+---
+
+### **Best Practices**:
+- Use **package version constraints** (`*`, `>=`, etc.) in the `.csproj` file to manage dependencies consistently.
+- Regularly update packages to patch vulnerabilities or add features.
+- Use tools like **NuGet Package Manager Console** in Visual Studio for advanced package management.
+
+---
+
+### **Interview Summary**:
+NuGet packages in .NET Core projects are managed via:
+1. **.NET CLI** (`dotnet add package`, `dotnet remove package`).
+2. **Visual Studio** GUI for installing, updating, and removing packages.
+3. **Direct edits** to the `.csproj` file for manual control.
+Packages can be restored using `dotnet restore`, ensuring project dependencies are up to date.
+<br>
+
+## 12. Explain the role of the NuGet package manager.
+### **Role of the NuGet Package Manager**:
+
+The **NuGet Package Manager** is a tool used to manage dependencies for .NET projects. It simplifies the process of adding, updating, and removing libraries (NuGet packages) required by your application. NuGet ensures that the right versions of packages and their dependencies are installed and configured correctly.
+
+---
+
+### **Key Responsibilities:**
+
+1. **Dependency Management**:
+   - Resolves and installs required libraries (NuGet packages) for a project, along with their dependencies.
+   - Prevents conflicts by managing versioning and compatibility of packages.
+
+2. **Package Installation**:
+   - Enables developers to add functionality (e.g., logging, data handling, serialization) by installing packages with minimal effort.
+
+3. **Package Updates**:
+   - Provides tools to update installed packages to newer versions while maintaining compatibility.
+
+4. **Package Restore**:
+   - Ensures all required packages are downloaded when a project is built or cloned (via `dotnet restore` or Visual Studio).
+
+5. **Publishing Libraries**:
+   - Allows developers to create and publish their own packages to share code across teams or publicly via the NuGet Gallery.
+
+6. **Version Control**:
+   - Tracks installed package versions to maintain consistency across environments and developers.
+
+7. **Automation**:
+   - Supports automation through tools like `.NET CLI` and **Package Manager Console**.
+
+---
+
+### **How It Works**:
+1. The package manager fetches packages from online repositories (e.g., **nuget.org**) or local sources.
+2. Installed packages are added to the project file (`.csproj`) and configuration files (`obj/project.assets.json`).
+3. Dependencies are resolved and stored in the **`packages`** folder or global cache.
+
+---
+
+### **Interview Summary**:
+The **NuGet Package Manager** simplifies dependency management for .NET projects by handling library installation, updates, and versioning. It ensures consistency, automates package restoration, and facilitates the creation and sharing of reusable code packages.
+<br>
+
+## 13. Describe the process of publishing a .NET Core application.
+### **Process of Publishing a .NET Core Application**
+
+Publishing a .NET Core application involves packaging the application and its dependencies for deployment on a target environment. This ensures the application runs consistently, regardless of the environment it is deployed in.
+
+---
+
+### **Steps to Publish a .NET Core Application**
+
+#### **1. Prepare the Application**
+- Ensure your application is complete, tested, and production-ready.
+- Verify the configuration (e.g., `appsettings.json`, connection strings) for the target environment.
+
+---
+
+#### **2. Choose the Deployment Type**
+.NET Core supports two deployment types:
+1. **Framework-Dependent Deployment (FDD)**:
+   - Requires the .NET runtime to be installed on the target machine.
+   - The application package is smaller.
+2. **Self-Contained Deployment (SCD)**:
+   - Includes the .NET runtime and all dependencies with the application.
+   - The application is independent of the target machine's runtime.
+
+---
+
+#### **3. Use the .NET CLI to Publish**
+- Run the `dotnet publish` command to package the application.
+
+##### **Framework-Dependent Deployment (FDD):**
+```bash
+dotnet publish -c Release -o <output-folder>
+```
+
+##### **Self-Contained Deployment (SCD):**
+```bash
+dotnet publish -c Release -r <RID> --self-contained true -o <output-folder>
+```
+- **`-c Release`**: Builds the application in Release mode.
+- **`-r <RID>`**: Specifies the Runtime Identifier (e.g., `win-x64`, `linux-x64`).
+- **`--self-contained true`**: Includes the .NET runtime.
+
+---
+
+#### **4. Output Structure**
+The published output contains:
+- **Executable file** (`.exe` on Windows, no extension on Linux/macOS for SCD).
+- **Dependencies**: DLLs and configuration files.
+- **wwwroot** (for web applications): Static files like CSS, JavaScript, etc.
+
+---
+
+#### **5. Configure for Deployment**
+- **Web Applications**:
+  - Configure `web.config` or reverse proxy (e.g., Nginx, Apache) for hosting.
+  - Ensure server compatibility with Kestrel or a reverse proxy setup.
+- **Desktop/Console Applications**:
+  - Ensure permissions and environment variables are correctly set.
+
+---
+
+#### **6. Deploy to Target Environment**
+- **Copy Files**: Move the published files to the deployment server or machine.
+- **Cloud Deployment**: Use services like Azure App Service or AWS Elastic Beanstalk.
+- **Container Deployment**: Create a Docker image using a Dockerfile and deploy to a containerized environment.
+
+---
+
+#### **7. Test and Monitor**
+- Test the application in the deployment environment to ensure it works as expected.
+- Set up monitoring and logging to track application performance and issues.
+
+---
+
+### **Interview Summary**
+Publishing a .NET Core application involves:
+1. Choosing between **Framework-Dependent** or **Self-Contained** deployment.
+2. Running `dotnet publish` with appropriate options to package the application.
+3. Configuring the deployment environment for the application type (web, desktop, or console).
+4. Testing and monitoring after deployment. This ensures portability and reliability in production.
+<br>
+
+## 14. What is a .NET Standard and how does it relate to .NET Core?
+### **What is .NET Standard?**
+
+**.NET Standard** is a formal specification of APIs (a set of interfaces and libraries) that are available across all .NET implementations. Its purpose is to ensure code-sharing and compatibility across different .NET platforms, such as **.NET Framework**, **.NET Core**, **Xamarin**, and **Mono**.
+
+---
+
+### **Purpose of .NET Standard**
+1. **Code Sharing**: Enables developers to write libraries that can be used across multiple .NET platforms without modification.
+2. **Compatibility**: Provides a unified API surface, ensuring that libraries targeting .NET Standard will work on any platform that implements the required .NET Standard version.
+3. **Simplification**: Reduces the need for platform-specific libraries by standardizing common APIs.
+
+---
+
+### **How Does .NET Standard Relate to .NET Core?**
+1. **Subset of .NET Core**:
+   - .NET Core implements **.NET Standard**, meaning all APIs defined in a specific version of .NET Standard are available in .NET Core.
+   - .NET Core includes additional APIs beyond .NET Standard, offering platform-specific capabilities.
+
+2. **Compatibility**:
+   - A library targeting .NET Standard can run on .NET Core, but a library targeting .NET Core may not run on other platforms like .NET Framework unless it adheres to the .NET Standard specification.
+
+3. **Cross-Platform Development**:
+   - .NET Core's cross-platform nature aligns with .NET Standard's goal of enabling code reuse across platforms.
+
+---
+
+### **Versions and API Availability**
+- Higher versions of .NET Standard include more APIs but are supported by fewer platforms.
+- Example:
+  - **.NET Standard 2.0** is widely supported (by .NET Core 2.x, .NET Framework 4.6.1+, Xamarin, etc.).
+  - **.NET Standard 2.1** adds more APIs but is supported only by .NET Core 3.x and later.
+
+---
+
+### **.NET 5+ and Beyond**
+- Starting with **.NET 5**, the distinction between **.NET Standard** and other platforms (e.g., .NET Core, .NET Framework) has diminished, as all platforms converge into a single unified platform: **.NET**.
+- Libraries should target **.NET Standard** if compatibility with older platforms like .NET Framework is required. Otherwise, targeting .NET 5+ is recommended for new projects.
+
+---
+
+### **Interview Summary**
+**.NET Standard** is a specification that ensures API consistency and compatibility across different .NET platforms. It allows developers to create libraries that work on platforms like **.NET Core**, **.NET Framework**, and **Xamarin**. While .NET Core implements .NET Standard, it also includes additional platform-specific features. With the advent of .NET 5+, the focus has shifted to a unified platform, reducing the reliance on .NET Standard.
+<br>
+
+## 15. How do you create a class library in .NET Core?
+### **Steps to Create a Class Library in .NET Core**
+
+A class library is a project in .NET Core used to encapsulate reusable functionality that can be shared across multiple applications.
+
+---
+
+#### **1. Using .NET CLI**
+You can create a class library using the .NET CLI with the following steps:
+
+1. **Open a terminal or command prompt**.
+2. **Run the command to create a class library**:
+   ```bash
+   dotnet new classlib -n <LibraryName>
+   ```
+   - `classlib`: Specifies the template for a class library.
+   - `-n <LibraryName>`: Sets the name of the class library.
+3. **Navigate to the newly created folder**:
+   ```bash
+   cd <LibraryName>
+   ```
+4. **Build the library**:
+   ```bash
+   dotnet build
+   ```
+
+---
+
+#### **2. Using Visual Studio**
+1. **Open Visual Studio** and create a new project.
+2. **Choose the "Class Library" template**:
+   - Search for "Class Library" in the project templates.
+   - Select either `.NET Core` or `.NET Standard` depending on your needs.
+3. **Set the project name and location**:
+   - Enter the library name and save location, then click "Create."
+4. **Modify the class library**:
+   - By default, a `Class1.cs` file is created. Add your reusable code here or create additional classes as needed.
+5. **Build the library**:
+   - Click `Build > Build Solution` to compile the library.
+
+---
+
+#### **3. Reference the Class Library in Another Project**
+After creating the class library, you need to reference it in other projects:
+
+- **Using Visual Studio**:
+  1. Right-click the consuming project's "Dependencies" node and select "Add Project Reference."
+  2. Check the box next to your class library project and click "OK."
+
+- **Using .NET CLI**:
+  1. Navigate to the consuming project folder.
+  2. Run:
+     ```bash
+     dotnet add reference <path-to-class-library-csproj>
+     ```
+
+---
+
+### **Key Files in a Class Library**
+- **`<LibraryName>.csproj`**:
+  - Defines the project structure, dependencies, and target framework.
+- **Class Files (e.g., `Class1.cs`)**:
+  - Contains the reusable code.
+
+---
+
+### **Interview Summary**
+To create a class library in .NET Core:
+- Use `dotnet new classlib` with the .NET CLI or select the "Class Library" template in Visual Studio.
+- Write reusable code in the library.
+- Reference the library in other projects using `dotnet add reference` or Visual Studio’s project reference feature.
+<br>
+
 ---
 
 ## 🤝 Contributing
