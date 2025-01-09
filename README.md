@@ -1,5 +1,5 @@
 # .NET Core
-
+ dgfdg
 This repository contains a comprehensive collection of **.NET Core interview questions** to help you prepare for technical interviews. These questions cover a wide range of topics, from basics to advanced concepts, ensuring you're well-prepared for your next interview.
 
 ---
