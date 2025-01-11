@@ -6,21 +6,143 @@ This repository contains a comprehensive collection of **.NET Core interview que
 
 ## 🚀 Table of Contents
 
-1. [Explain the file structure of a .Net 8 project.](#1-explain-the-file-structure-of-a-net-8-project)
-2. [What is .NET Core and how does it differ from the .NET Framework?](#2-what-is-net-core-and-how-does-it-differ-from-the-net-framework)
-3. [Describe the cross-platform capabilities of .NET Core.](#3-describe-the-cross-platform-capabilities-of-net-core)
-4. [What are the main components of the .NET Core architecture?](#4-what-are-the-main-components-of-the-net-core-architecture)
-5. [Explain the .NET Core CLI and its primary functions.](#5-explain-the-net-core-cli-and-its-primary-functions)
-6. [How do you create a new .NET Core project using the CLI?](#6-how-do-you-create-a-new-net-core-project-using-the-cli)
-7. [What is the purpose and use of a csproj file in a .NET Core project.](#7-what-is-the-purpose-and-use-of-a-csproj-file-in-a-net-core-project)
-8. [What is the runtime and SDK in .NET Core?](#8-what-is-the-runtime-and-sdk-in-net-core)
-9. [How would you manage different versions of the .NET Core SDK on the same machine?](#9-how-would-you-manage-different-versions-of-the-net-core-sdk-on-the-same-machine)
-10. [What is the purpose of the global.json file?](#10-what-is-the-purpose-of-the-globaljson-file)
+Here is the list reformatted according to your requirements:
+
+### 🎯 .NET Core Fundamentals
+1. [What is .NET Core and how does it differ from the .NET Framework?](#1-what-is-net-core-and-how-does-it-differ-from-the-net-framework)
+2. [Describe the cross-platform capabilities of .NET Core.](#2-describe-the-cross-platform-capabilities-of-net-core)
+3. [What are the main components of the .NET Core architecture?](#3-what-are-the-main-components-of-the-net-core-architecture)
+4. [Explain the .NET Core CLI and its primary functions.](#4-explain-the-net-core-cli-and-its-primary-functions)
+5. [How do you create a new .NET Core project using the CLI?](#5-how-do-you-create-a-new-net-core-project-using-the-cli)
+6. [Discuss the purpose and use of a csproj file in a .NET Core project.](#6-discuss-the-purpose-and-use-of-a-csproj-file-in-a-net-core-project)
+7. [What is the runtime and SDK in .NET Core?](#7-what-is-the-runtime-and-sdk-in-net-core)
+8. [How would you manage different versions of the .NET Core SDK on the same machine?](#8-how-would-you-manage-different-versions-of-the-net-core-sdk-on-the-same-machine)
+9. [What is the purpose of the global.json file?](#9-what-is-the-purpose-of-the-globaljson-file)
+10. [Can you explain the Directory Structure of a typical .NET Core project?](#10-can-you-explain-the-directory-structure-of-a-typical-net-core-project)
+
+### 🎯 .NET Core Dependencies and Libraries
 11. [How do you add and manage NuGet packages in a .NET Core project?](#11-how-do-you-add-and-manage-nuget-packages-in-a-net-core-project)
 12. [Explain the role of the NuGet package manager.](#12-explain-the-role-of-the-nuget-package-manager)
 13. [Describe the process of publishing a .NET Core application.](#13-describe-the-process-of-publishing-a-net-core-application)
 14. [What is a .NET Standard and how does it relate to .NET Core?](#14-what-is-a-net-standard-and-how-does-it-relate-to-net-core)
 15. [How do you create a class library in .NET Core?](#15-how-do-you-create-a-class-library-in-net-core)
+
+### 🎯 .NET Core Web Development
+16. [Describe the MVC pattern in .NET Core.](#16-describe-the-mvc-pattern-in-net-core)
+17. [How do you set up a Web API in a .NET Core project?](#17-how-do-you-set-up-a-web-api-in-a-net-core-project)
+18. [What are middleware components in .NET Core?](#18-what-are-middleware-components-in-net-core)
+19. [Explain how static files are served in a .NET Core web application.](#19-explain-how-static-files-are-served-in-a-net-core-web-application)
+20. [Discuss the use and configuration of the appsettings.json file.](#20-discuss-the-use-and-configuration-of-the-appsettingsjson-file)
+21. [What is Dependency Injection (DI) in .NET Core?](#21-what-is-dependency-injection-di-in-net-core)
+22. [How do you implement custom services and use DI in .NET Core?](#22-how-do-you-implement-custom-services-and-use-di-in-net-core)
+23. [What are environment variables and how do they work in .NET Core?](#23-what-are-environment-variables-and-how-do-they-work-in-net-core)
+24. [How does routing work in a .NET Core MVC application?](#24-how-does-routing-work-in-a-net-core-mvc-application)
+25. [What are Razor Pages in .NET Core?](#25-what-are-razor-pages-in-net-core)
+
+### 🎯 .NET Core Advanced Topics
+26. [Explain the concept of Tag Helpers in ASP.NET Core.](#26-explain-the-concept-of-tag-helpers-in-aspnet-core)
+27. [How do you ensure the security of a .NET Core application?](#27-how-do-you-ensure-the-security-of-a-net-core-application)
+28. [What is an EF Core and how do you use it with .NET Core?](#28-what-is-an-ef-core-and-how-do-you-use-it-with-net-core)
+29. [How do you handle migrations in EF Core?](#29-how-do-you-handle-migrations-in-ef-core)
+30. [Describe how to cache data in a .NET Core web application.](#30-describe-how-to-cache-data-in-a-net-core-web-application)
+31. [What are SignalR and its use cases in .NET Core?](#31-what-are-signalr-and-its-use-cases-in-net-core)
+32. [How can you build real-time applications using .NET Core?](#32-how-can-you-build-real-time-applications-using-net-core)
+33. [Explain the role of a kestrel server in .NET Core.](#33-explain-the-role-of-a-kestrel-server-in-net-core)
+34. [What is Blazor and how does it integrate with .NET Core?](#34-what-is-blazor-and-how-does-it-integrate-with-net-core)
+35. [How do you perform logging in .NET Core?](#35-how-do-you-perform-logging-in-net-core)
+
+### 🎯 .NET Core Performance and Optimization
+36. [What features does .NET Core include to improve application performance?](#36-what-features-does-net-core-include-to-improve-application-performance)
+37. [How can you monitor performance in a .NET Core application?](#37-how-can-you-monitor-performance-in-a-net-core-application)
+38. [Discuss performance profiling tools suitable for .NET Core.](#38-discuss-performance-profiling-tools-suitable-for-net-core)
+39. [What is the purpose of asynchronous programming in .NET Core?](#39-what-is-the-purpose-of-asynchronous-programming-in-net-core)
+40. [How do you identify and resolve memory leaks in a .NET Core application?](#40-how-do-you-identify-and-resolve-memory-leaks-in-a-net-core-application)
+
+### 🎯 .NET Core Testing and Debugging
+41. [How do you write unit tests in a .NET Core application?](#41-how-do-you-write-unit-tests-in-a-net-core-application)
+42. [Describe the use of xUnit, NUnit, and MSTest Frameworks.](#42-describe-the-use-of-xunit-nunit-and-mstest-frameworks)
+43. [What are Integration Tests and how do they differ from Unit Tests?](#43-what-are-integration-tests-and-how-do-they-differ-from-unit-tests)
+44. [Explain the use of the Logging API for troubleshooting.](#44-explain-the-use-of-the-logging-api-for-troubleshooting)
+45. [What is the TDD approach and how can it be implemented in .NET Core development?](#45-what-is-the-tdd-approach-and-how-can-it-be-implemented-in-net-core-development)
+
+### 🎯 .NET Core Deployment and Configuration
+46. [What is Docker and how can it be used with .NET Core?](#46-what-is-docker-and-how-can-it-be-used-with-net-core)
+47. [How can you deploy a .NET Core application to the cloud (e.g., Azure)?](#47-how-can-you-deploy-a-net-core-application-to-the-cloud-e-g-azure)
+48. [What are some common security considerations when deploying a .NET Core application?](#48-what-are-some-common-security-considerations-when-deploying-a-net-core-application)
+49. [Discuss the strategies for scaling .NET Core applications.](#49-discuss-the-strategies-for-scaling-net-core-applications)
+50. [How do you configure HTTPS and SSL in a .NET Core Web Application?](#50-how-do-you-configure-https-and-ssl-in-a-net-core-web-application)
+
+### 🎯 .NET Core and Cloud Integration
+51. [Explain how you can integrate Azure services into a .NET Core application.](#51-explain-how-you-can-integrate-azure-services-into-a-net-core-application)
+52. [How do you use Azure DevOps for CI/CD with a .NET Core project?](#52-how-do-you-use-azure-devops-for-cicd-with-a-net-core-project)
+53. [What are the best practices for building a microservices architecture in .NET Core?](#53-what-are-the-best-practices-for-building-a-microservices-architecture-in-net-core)
+54. [How does .NET Core work with container orchestration tools like Kubernetes?](#54-how-does-net-core-work-with-container-orchestration-tools-like-kubernetes)
+55. [Describe serverless computing with .NET Core on platforms like AWS Lambda.](#55-describe-serverless-computing-with-net-core-on-platforms-like-aws-lambda)
+
+### 🎯 .NET Core Data Access
+56. [How do you work with databases using Entity Framework Core?](#56-how-do-you-work-with-databases-using-entity-framework-core)
+57. [What is the purpose of the DbContext in EF Core?](#57-what-is-the-purpose-of-the-dbcontext-in-ef-core)
+58. [Explain the Code-First and Database-First approaches in EF Core.](#58-explain-the-code-first-and-database-first-approaches-in-ef-core)
+59. [How do you handle database transactions in .NET Core?](#59-how-do-you-handle-database-transactions-in-net-core)
+60. [Discuss using Dapper as an alternative to Entity Framework in .NET Core applications.](#60-discuss-using-dapper-as-an-alternative-to-entity-framework-in-net-core-applications)
+
+### 🎯 .NET Core Design Patterns and Practices
+61. [What are some popular design patterns used in .NET Core applications?](#61-what-are-some-popular-design-patterns-used-in-net-core-applications)
+62. [How do you implement Repository and Unit of Work patterns in .NET Core?](#62-how-do-you-implement-repository-and-unit-of-work-patterns-in-net-core)
+63. [Explain CQRS and how it applies to .NET Core.](#63-explain-cqrs-and-how-it-applies-to-net-core)
+64. [Discuss the importance of domain-driven design (DDD) in .NET Core.](#64-discuss-the-importance-of-domain-driven-design-ddd-in-net-core)
+65. [How does .NET Core support the SOLID principles in software development?](#65-how-does-net-core-support-the-solid-principles-in-software-development)
+
+### 🎯 .NET Core Interoperability and Legacy Systems
+66. [How can you integrate a .NET Core application with legacy .NET Framework apps?](#66-how-can-you-integrate-a-net-core-application-with-legacy-net-framework-apps)
+67. [Can you consume COM objects in .NET Core?](#67-can-you-consume-com-objects-in-net-core)
+68. [Discuss strategies for migrating from .NET Framework to .NET Core.](#68-discuss-strategies-for-migrating-from-net-framework-to-net-core)
+69. [What are the challenges associated with interoperability in .NET Core?](#69-what-are-the-challenges-associated-with-interoperability-in-net-core)
+
+### 🎯 .NET Core CLI and Tools
+70. [How do you manage user secrets in development with the .NET Core CLI?](#70-how-do-you-manage-user-secrets-in-development-with-the-net-core-cli)
+71. [What is the watch command in the .NET Core CLI and when would you use it?](#71-what-is-the-watch-command-in-the-net-core-cli-and-when-would-you-use-it)
+72. [Explain the dotnet ef CLI tool and its primary uses.](#72-explain-the-dotnet-ef-cli-tool-and-its-primary-uses)
+73. [Describe the use of scaffolding in .NET Core.](#73-describe-the-use-of-scaffolding-in-net-core)
+74. [How do you use the CLI to run and debug .NET Core applications?](#74-how-do-you-use-the-cli-to-run-and-debug-net-core-applications)
+
+### 🎯 .NET Core Configuration and Settings
+75. [How do you manage configurations and settings in .NET Core for multiple environments?](#75-how-do-you-manage-configurations-and-settings-in-net-core-for-multiple-environments)
+76. [What is an IOptions pattern and how can it be used for configuration?](#76-what-is-an-ioptions-pattern-and-how-can-it-be-used-for-configuration)
+77. [Describe the role and configuration of middleware in .NET Core.](#77-describe-the-role-and-configuration-of-middleware-in-net-core)
+78. [Explain how Configuration Builders are used in .NET Core.](#78-explain-how-configuration-builders-are-used-in-net-core)
+79. [How do you read command-line arguments in a .NET Core application?](#79-how-do-you-read-command-line-arguments-in-a-net-core-application)
+
+### 🎯 .NET Core and Security
+80. [How does .NET Core handle authentication and authorization?](#80-how-does-net-core-handle-authentication-and-authorization)
+81. [What is the Identity system in .NET Core?](#81-what-is-the-identity-system-in-net-core)
+82. [Describe how to implement JWT authentication in .NET Core.](#82-describe-how-to-implement-jwt-authentication-in-net-core)
+83. [Discuss the use of HTTPS redirection and HSTS in .NET Core apps.](#83-discuss-the-use-of-https-redirection-and-hsts-in-net-core-apps)
+84. [How can you secure API endpoints in .NET Core?](#84-how-can-you-secure-api-endpoints-in-net-core)
+
+### 🎯 Contemporary .NET Core
+85. [What is the future of .NET Core with upcoming releases of .NET 5 and later?](#85-what-is-the-future-of-net-core-with-upcoming-releases-of-net-5-and-later)
+86. [How has the introduction of .NET 5 changed the way .NET Core is used?](#86-how-has-the-introduction-of-net-5-changed-the-way-net-core-is-used)
+87. [Discuss the role of .NET Core in IoT development.](#87-discuss-the-role-of-net-core-in-iot-development)
+88. [What impact does .NET Core have on desktop application development with technologies like MAUI?](#88-what-impact-does-net-core-have-on-desktop-application-development-with-technologies-like-maui)
+89. [Explain the support for gRPC in .NET Core.](#89-explain-the-support-for-grpc-in-net-core)
+
+### 🎯 .NET Core and Front-End Frameworks
+90. [How can you integrate Angular, React, or Vue.js with a .NET Core Web API?](#90-how-can-you-integrate-angular-react-or-vuejs-with-a-net-core-web-api)
+91. [What is a SPA (Single Page Application) template in .NET Core?](#91-what-is-a-spa-single-page-application-template-in-net-core)
+92. [Discuss server-side rendering with JavaScript frameworks in the context of .NET Core.](#92-discuss-server-side-rendering-with-javascript-frameworks-in-the-context-of-net-core)
+
+### 🎯 .NET Core Advanced Features
+93. [What new features are introduced in the latest version of .NET Core?](#93-what-new-features-are-introduced-in-the-latest-version-of-net-core)
+94. [How does .NET Core support machine learning with ML.NET?](#94-how-does-net-core-support-machine-learning-with-mlnet)
+95. [Discuss Source Generators and their use in .NET Core.](#95-discuss-source-generators-and-their-use-in-net-core)
+96. [What are dynamic compilations and how does .NET Core handle them?](#96-what-are-dynamic-compilations-and-how-does-net-core-handle-them)
+97. [Explain the support for local functions in .NET Core.](#97-explain-the-support-for-local-functions-in-net-core)
+98. [Discuss null reference types in C# 8.0 and how they affect .NET Core development.](#98-discuss-null-reference-types-in-c-80-and-how-they-affect-net-core-development)
+
+### 🎯 .NET Core Community and Support
+99. [How does the .NET Core open source community contribute to the framework’s development?](#99-how-does-the-net-core-open-source-community-contribute-to-the-frameworks-development)
+100. [Discuss the support options available for .NET Core developers.](#100-discuss-the-support-options-available-for-net-core-developers)
 
 ---
 
